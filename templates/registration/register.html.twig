@@ -89,10 +89,11 @@
 
                                         <div class="mt-4">
                                             
-                                            <form class="needs-validation" novalidate action="{{ url('app_register') }}">
+                                            
                                                 {{ form_errors(registrationForm) }}
 
-                                                    {{ form_start(registrationForm) }}
+                                                    {{ form_start(registrationForm, { 'attr': { 'class': 'needs-validation', 'novalidate': 'novalidate' } }) }}
+
                                                       
                                                 <div class="mb-3">
                                                     <label for="useremail" class="form-label">Email <span class="text-danger">*</span></label>
@@ -152,20 +153,12 @@
                                                     </span>
                                                 </div>
 
-                                                <div id="password-contain" class="p-3 bg-light mb-2 rounded">
-                                                    <h5 class="fs-13">Password must contain:</h5>
-                                                    <p id="pass-length" class="invalid fs-12 mb-2">Minimum <b>8 characters</b></p>
-                                                    <p id="pass-lower" class="invalid fs-12 mb-2">At <b>lowercase</b> letter (a-z)</p>
-                                                    <p id="pass-upper" class="invalid fs-12 mb-2">At least <b>uppercase</b> letter (A-Z)</p>
-                                                    <p id="pass-number" class="invalid fs-12 mb-0">A least <b>number</b> (0-9)</p>
-                                                </div>
-
                                                 <div class="mt-4 row">
-                                                    <button class="btn btn-outline-success col-5" type="submit" name="roles" value="ROLE_DEV">Récruteur</button>
-                                                    <button class="btn btn-success col-5 offset-2" type="submit" name="roles" value="ROLE_COMPANY">Développeur</button>
+                                                    <button class="btn btn-outline-success col-5" type="submit" name="roles" value="ROLE_COMPANY">Récruteur</button>
+                                                    <button class="btn btn-success col-5 offset-2" type="submit" name="roles" value="ROLE_DEV">Développeur</button>
                                                 </div>
                                                     {{ form_end(registrationForm) }}
-                                            </form>
+                                          
                                         </div>
 
                                         <div class="mt-5 text-center">
