@@ -15,15 +15,15 @@ class LandingController extends AbstractController
         return $this->render('landing/index.html.twig');
     }
 
-    #[Route('/login', name: 'app_login')]
+    /* #[Route('/login1', name: 'app_login')]
     public function login(): Response
     {
         return $this->render('authentification/login.html.twig');
     }
 
-    #[Route('/register', name: 'app_register')]
+    #[Route('/register1', name: 'app_register')]
     public function register(): Response
     {
         return $this->render('authentification/register.html.twig');
-    }
+    } */
 }
