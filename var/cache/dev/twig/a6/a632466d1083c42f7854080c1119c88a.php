@@ -15,6 +15,7 @@ use Twig\Template;
 use Twig\TemplateWrapper;
 
 /* base.html.twig */
+
 class __TwigTemplate_8034dc26b88ca129bf310bb119e5024e extends Template
 {
     private Source $source;
@@ -78,7 +79,7 @@ class __TwigTemplate_8034dc26b88ca129bf310bb119e5024e extends Template
         yield "    </body>
 </html>
 ";
-        
+
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
         yield from [];
@@ -95,7 +96,7 @@ class __TwigTemplate_8034dc26b88ca129bf310bb119e5024e extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
         yield "AdoptUnDev";
-        
+
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
         yield from [];
@@ -129,7 +130,7 @@ class __TwigTemplate_8034dc26b88ca129bf310bb119e5024e extends Template
         <!-- custom Css-->
         <link href=\"assets/css/custom.min.css\" rel=\"stylesheet\" type=\"text/css\" />
         ";
-        
+
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
         yield from [];
@@ -164,7 +165,7 @@ class __TwigTemplate_8034dc26b88ca129bf310bb119e5024e extends Template
         <!-- validation init -->
         <script src=\"assets/js/pages/form-validation.init.js\"></script>
         ";
-        
+
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
         yield from [];
@@ -180,7 +181,7 @@ class __TwigTemplate_8034dc26b88ca129bf310bb119e5024e extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        
+
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
         yield from [];
@@ -199,7 +200,7 @@ class __TwigTemplate_8034dc26b88ca129bf310bb119e5024e extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  174 => 52,  149 => 31,  139 => 30,  115 => 11,  105 => 10,  88 => 5,  78 => 53,  76 => 52,  71 => 49,  69 => 30,  65 => 28,  63 => 10,  55 => 5,  49 => 1,);
+        return array(174 => 52,  149 => 31,  139 => 30,  115 => 11,  105 => 10,  88 => 5,  78 => 53,  76 => 52,  71 => 49,  69 => 30,  65 => 28,  63 => 10,  55 => 5,  49 => 1,);
     }
 
     public function getSourceContext(): Source

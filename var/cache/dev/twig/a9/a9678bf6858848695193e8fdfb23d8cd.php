@@ -15,6 +15,7 @@ use Twig\Template;
 use Twig\TemplateWrapper;
 
 /* landing/index.html.twig */
+
 class __TwigTemplate_7f04a4e1b947f7544c944b37fb64423d extends Template
 {
     private Source $source;
@@ -49,9 +50,8 @@ class __TwigTemplate_7f04a4e1b947f7544c944b37fb64423d extends Template
 
         $this->parent = $this->loadTemplate("base.html.twig", "landing/index.html.twig", 1);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
-        
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
     }
 
     // line 3
@@ -65,7 +65,7 @@ class __TwigTemplate_7f04a4e1b947f7544c944b37fb64423d extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
         yield "Bienvenue";
-        
+
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
         yield from [];
@@ -1369,7 +1369,7 @@ class __TwigTemplate_7f04a4e1b947f7544c944b37fb64423d extends Template
         </div>
         <!-- end layout wrapper -->
 ";
-        
+
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
         yield from [];
@@ -1396,7 +1396,7 @@ class __TwigTemplate_7f04a4e1b947f7544c944b37fb64423d extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  122 => 41,  85 => 6,  75 => 5,  58 => 3,  41 => 1,);
+        return array(122 => 41,  85 => 6,  75 => 5,  58 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
