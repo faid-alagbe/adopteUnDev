@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="fr" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable" data-theme="default" data-theme-colors="default">
 <html>
     <head>
         <meta charset="utf-8" />
@@ -25,6 +26,7 @@
         <!-- custom Css-->
         <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
         {% endblock %}
+        
 
        
         {% block javascripts %}
@@ -45,10 +47,36 @@
 
         <!-- validation init -->
         <script src="assets/js/pages/form-validation.init.js"></script>
+
+        <script src="assets/js/pages/profile.init.js"></script>
+
+        <script src="assets/libs/card/card.js"></script>
+        <script src="assets/js/app.js"></script>
+        <script src="assets/js/pages/widgets.init.js"></script>
+        <script src="assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+        <script src="assets/libs/jsvectormap/maps/world-merc.js"></script>
+        <script src="assets/libs/jsvectormap/maps/us-merc-en.js"></script>
+        <script src="assets/js/pages/form-input-spin.init.js"></script>
         {% endblock %}
         
+
+
+
+
+    <!-- apexcharts -->
+    <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Vector map-->
+    
+
+
+    <!-- Widget init -->
+    
+
+    <!-- App js -->
     </head>
     <body data-bs-spy="scroll" data-bs-target="#navbar-example">
-        {% block body %}{% endblock %}
+        {% block body %}
+        {% endblock %}
     </body>
 </html>
