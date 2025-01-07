@@ -14,6 +14,7 @@ File: Icons Css File
   font-weight: normal;
   font-style: normal;
 }
+
 .mdi:before,
 .mdi-set {
   display: inline-block;
@@ -29214,19 +29215,23 @@ File: Icons Css File
   visibility: hidden;
 }
 
-.mdi-18px.mdi-set, .mdi-18px.mdi:before {
+.mdi-18px.mdi-set,
+.mdi-18px.mdi:before {
   font-size: 18px;
 }
 
-.mdi-24px.mdi-set, .mdi-24px.mdi:before {
+.mdi-24px.mdi-set,
+.mdi-24px.mdi:before {
   font-size: 24px;
 }
 
-.mdi-36px.mdi-set, .mdi-36px.mdi:before {
+.mdi-36px.mdi-set,
+.mdi-36px.mdi:before {
   font-size: 36px;
 }
 
-.mdi-48px.mdi-set, .mdi-48px.mdi:before {
+.mdi-48px.mdi-set,
+.mdi-48px.mdi:before {
   font-size: 48px;
 }
 
@@ -29418,7 +29423,7 @@ File: Icons Css File
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
   -webkit-filter: FlipH;
-          filter: FlipH;
+  filter: FlipH;
   -ms-filter: "FlipH";
 }
 
@@ -29426,7 +29431,7 @@ File: Icons Css File
   -webkit-transform: scaleY(-1);
   transform: scaleY(-1);
   -webkit-filter: FlipV;
-          filter: FlipV;
+  filter: FlipV;
   -ms-filter: "FlipV";
 }
 
@@ -29440,16 +29445,19 @@ File: Icons Css File
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
+
 @keyframes mdi-spin {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
@@ -29463,6 +29471,7 @@ File: Icons Css File
   src: url("../fonts/boxicons.eot");
   src: url("../fonts/boxicons.eot") format("embedded-opentype"), url("../fonts/boxicons.woff2") format("woff2"), url("../fonts/boxicons.woff") format("woff"), url("../fonts/boxicons.ttf") format("truetype"), url("../fonts/boxicons.svg?#boxicons") format("svg");
 }
+
 .bx {
   font-family: "boxicons" !important;
   font-weight: normal;
@@ -29483,7 +29492,7 @@ File: Icons Css File
   list-style: none;
 }
 
-.bx-ul > li {
+.bx-ul>li {
   position: relative;
 }
 
@@ -29501,207 +29510,259 @@ File: Icons Css File
     -webkit-transform: rotate(0);
     transform: rotate(0);
   }
+
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
+
 @keyframes spin {
   0% {
     -webkit-transform: rotate(0);
     transform: rotate(0);
   }
+
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
+
 @-webkit-keyframes burst {
   0% {
     -webkit-transform: scale(1);
     transform: scale(1);
     opacity: 1;
   }
+
   90% {
     -webkit-transform: scale(1.5);
     transform: scale(1.5);
     opacity: 0;
   }
 }
+
 @keyframes burst {
   0% {
     -webkit-transform: scale(1);
     transform: scale(1);
     opacity: 1;
   }
+
   90% {
     -webkit-transform: scale(1.5);
     transform: scale(1.5);
     opacity: 0;
   }
 }
+
 @-webkit-keyframes flashing {
   0% {
     opacity: 1;
   }
+
   45% {
     opacity: 0;
   }
+
   90% {
     opacity: 1;
   }
 }
+
 @keyframes flashing {
   0% {
     opacity: 1;
   }
+
   45% {
     opacity: 0;
   }
+
   90% {
     opacity: 1;
   }
 }
+
 @-webkit-keyframes fade-left {
   0% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
     opacity: 1;
   }
+
   75% {
     -webkit-transform: translateX(-20px);
     transform: translateX(-20px);
     opacity: 0;
   }
 }
+
 @keyframes fade-left {
   0% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
     opacity: 1;
   }
+
   75% {
     -webkit-transform: translateX(-20px);
     transform: translateX(-20px);
     opacity: 0;
   }
 }
+
 @-webkit-keyframes fade-right {
   0% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
     opacity: 1;
   }
+
   75% {
     -webkit-transform: translateX(20px);
     transform: translateX(20px);
     opacity: 0;
   }
 }
+
 @keyframes fade-right {
   0% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
     opacity: 1;
   }
+
   75% {
     -webkit-transform: translateX(20px);
     transform: translateX(20px);
     opacity: 0;
   }
 }
+
 @-webkit-keyframes fade-up {
   0% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
     opacity: 1;
   }
+
   75% {
     -webkit-transform: translateY(-20px);
     transform: translateY(-20px);
     opacity: 0;
   }
 }
+
 @keyframes fade-up {
   0% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
     opacity: 1;
   }
+
   75% {
     -webkit-transform: translateY(-20px);
     transform: translateY(-20px);
     opacity: 0;
   }
 }
+
 @-webkit-keyframes fade-down {
   0% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
     opacity: 1;
   }
+
   75% {
     -webkit-transform: translateY(20px);
     transform: translateY(20px);
     opacity: 0;
   }
 }
+
 @keyframes fade-down {
   0% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
     opacity: 1;
   }
+
   75% {
     -webkit-transform: translateY(20px);
     transform: translateY(20px);
     opacity: 0;
   }
 }
+
 @-webkit-keyframes tada {
   from {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
-  10%, 20% {
+
+  10%,
+  20% {
     -webkit-transform: scale3d(0.95, 0.95, 0.95) rotate3d(0, 0, 1, -10deg);
     transform: scale3d(0.95, 0.95, 0.95) rotate3d(0, 0, 1, -10deg);
   }
-  30%, 50%, 70%, 90% {
+
+  30%,
+  50%,
+  70%,
+  90% {
     -webkit-transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, 10deg);
     transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, 10deg);
   }
-  40%, 60%, 80% {
+
+  40%,
+  60%,
+  80% {
     -webkit-transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, -10deg);
     transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, -10deg);
   }
+
   to {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
 }
+
 @keyframes tada {
   from {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
-  10%, 20% {
+
+  10%,
+  20% {
     -webkit-transform: scale3d(0.95, 0.95, 0.95) rotate3d(0, 0, 1, -10deg);
     transform: scale3d(0.95, 0.95, 0.95) rotate3d(0, 0, 1, -10deg);
   }
-  30%, 50%, 70%, 90% {
+
+  30%,
+  50%,
+  70%,
+  90% {
     -webkit-transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, 10deg);
     transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, 10deg);
   }
-  40%, 60%, 80% {
+
+  40%,
+  60%,
+  80% {
     -webkit-transform: rotate3d(0, 0, 1, -10deg);
     transform: rotate3d(0, 0, 1, -10deg);
   }
+
   to {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
 }
+
 .bx-spin {
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
@@ -29819,31 +29880,31 @@ File: Icons Css File
 
 .bx-rotate-90 {
   -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
+  transform: rotate(90deg);
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
 }
 
 .bx-rotate-180 {
   -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+  transform: rotate(180deg);
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
 }
 
 .bx-rotate-270 {
   -webkit-transform: rotate(270deg);
-          transform: rotate(270deg);
+  transform: rotate(270deg);
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
 }
 
 .bx-flip-horizontal {
   -webkit-transform: scaleX(-1);
-          transform: scaleX(-1);
+  transform: scaleX(-1);
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
 }
 
 .bx-flip-vertical {
   -webkit-transform: scaleY(-1);
-          transform: scaleY(-1);
+  transform: scaleY(-1);
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
 }
 
@@ -36475,7 +36536,7 @@ File: Icons Css File
   padding-left: 0;
 }
 
-.la-ul > li {
+.la-ul>li {
   position: relative;
 }
 
@@ -36532,21 +36593,25 @@ File: Icons Css File
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 @keyframes la-spin {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 .la-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
@@ -36577,7 +36642,8 @@ File: Icons Css File
   transform: scale(1, -1);
 }
 
-.la-flip-both, .la-flip-horizontal.la-flip-vertical {
+.la-flip-both,
+.la-flip-horizontal.la-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(-1, -1);
   transform: scale(-1, -1);
@@ -42211,7 +42277,8 @@ readers do not read off random characters that represent icons */
   width: 1px;
 }
 
-.sr-only-focusable:active, .sr-only-focusable:focus {
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
   clip: auto;
   height: auto;
   margin: 0;
@@ -42228,6 +42295,7 @@ readers do not read off random characters that represent icons */
   src: url("../fonts/la-brands-400.eot");
   src: url("../fonts/la-brands-400.eot?#iefix") format("embedded-opentype"), url("../fonts/la-brands-400.woff2") format("woff2"), url("../fonts/la-brands-400.woff") format("woff"), url("../fonts/la-brands-400.ttf") format("truetype"), url("../fonts/la-brands-400.svg#lineawesome") format("svg");
 }
+
 .lab {
   font-family: "Line Awesome Brands";
 }
@@ -42240,6 +42308,7 @@ readers do not read off random characters that represent icons */
   src: url("../fonts/la-regular-400.eot");
   src: url("../fonts/la-regular-400.eot?#iefix") format("embedded-opentype"), url("../fonts/la-regular-400.woff2") format("woff2"), url("../fonts/la-regular-400.woff") format("woff"), url("../fonts/la-regular-400.ttf") format("truetype"), url("../fonts/la-regular-400.svg#lineawesome") format("svg");
 }
+
 .lar {
   font-family: "Line Awesome Free";
   font-weight: 400;
@@ -42253,6 +42322,7 @@ readers do not read off random characters that represent icons */
   src: url("../fonts/la-solid-900.eot");
   src: url("../fonts/la-solid-900.eot?#iefix") format("embedded-opentype"), url("../fonts/la-solid-900.woff2") format("woff2"), url("../fonts/la-solid-900.woff") format("woff"), url("../fonts/la-solid-900.ttf") format("truetype"), url("../fonts/la-solid-900.svg#lineawesome") format("svg");
 }
+
 .la,
 .las {
   font-family: "Line Awesome Free";
@@ -45045,11 +45115,15 @@ readers do not read off random characters that represent icons */
 */
 @font-face {
   font-family: "remixicon";
-  src: url("../fonts/remixicon.eot?t=1701175860820"); /* IE9*/
-  src: url("../fonts/remixicon.eot?t=1701175860820#iefix") format("embedded-opentype"), url("../fonts/remixicon.woff2?t=1701175860820") format("woff2"), url("../fonts/remixicon.woff?t=1701175860820") format("woff"), url("../fonts/remixicon.ttf?t=1701175860820") format("truetype"), url("../fonts/remixicon.svg?t=1701175860820#remixicon") format("svg"); /* iOS 4.1- */
+  src: url("../fonts/remixicon.eot?t=1701175860820");
+  /* IE9*/
+  src: url("../fonts/remixicon.eot?t=1701175860820#iefix") format("embedded-opentype"), url("../fonts/remixicon.woff2?t=1701175860820") format("woff2"), url("../fonts/remixicon.woff?t=1701175860820") format("woff"), url("../fonts/remixicon.ttf?t=1701175860820") format("truetype"), url("../fonts/remixicon.svg?t=1701175860820#remixicon") format("svg");
+  /* iOS 4.1- */
   font-display: swap;
 }
-[class^=ri-], [class*=" ri-"] {
+
+[class^=ri-],
+[class*=" ri-"] {
   font-family: "remixicon" !important;
   font-style: normal;
   -webkit-font-smoothing: antialiased;

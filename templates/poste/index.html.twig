@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PosteEntity index{% endblock %}
+
+{% block body %}
+    <h1>PosteEntity index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Location</th>
+                <th>Experience_require</th>
+                <th>Salary</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for poste_entity in poste_entities %}
+            <tr>
+                <td>{{ poste_entity.id }}</td>
+                <td>{{ poste_entity.title }}</td>
+                <td>{{ poste_entity.location }}</td>
+                <td>{{ poste_entity.experienceRequire }}</td>
+                <td>{{ poste_entity.salary }}</td>
+                <td>{{ poste_entity.description }}</td>
+                <td>
+                    <a href="{{ path('app_poste_show', {'id': poste_entity.id}) }}">show</a>
+                    <a href="{{ path('app_poste_edit', {'id': poste_entity.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_poste_new') }}">Create new</a>
+{% endblock %}
