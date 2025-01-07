@@ -4,10 +4,14 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
+    'app_login' => [[], ['_controller' => 'App\\Controller\\AuthController::login'], [], [['text', '/login']], [], [], []],
+    'app_logout' => [[], ['_controller' => 'App\\Controller\\AuthController::logout'], [], [['text', '/logout']], [], [], []],
     'app_landing' => [[], ['_controller' => 'App\\Controller\\LandingController::index'], [], [['text', '/']], [], [], []],
-    'app_login' => [[], ['_controller' => 'App\\Controller\\LandingController::login'], [], [['text', '/login']], [], [], []],
-    'app_register' => [[], ['_controller' => 'App\\Controller\\LandingController::register'], [], [['text', '/register']], [], [], []],
+    'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
+    'app_verify_email' => [[], ['_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], [], [['text', '/verify/email']], [], [], []],
+    'App\Controller\AuthController::login' => [[], ['_controller' => 'App\\Controller\\AuthController::login'], [], [['text', '/login']], [], [], []],
+    'App\Controller\AuthController::logout' => [[], ['_controller' => 'App\\Controller\\AuthController::logout'], [], [['text', '/logout']], [], [], []],
     'App\Controller\LandingController::index' => [[], ['_controller' => 'App\\Controller\\LandingController::index'], [], [['text', '/']], [], [], []],
-    'App\Controller\LandingController::login' => [[], ['_controller' => 'App\\Controller\\LandingController::login'], [], [['text', '/login']], [], [], []],
-    'App\Controller\LandingController::register' => [[], ['_controller' => 'App\\Controller\\LandingController::register'], [], [['text', '/register']], [], [], []],
+    'App\Controller\RegistrationController::register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
+    'App\Controller\RegistrationController::verifyUserEmail' => [[], ['_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], [], [['text', '/verify/email']], [], [], []],
 ];
