@@ -23,7 +23,7 @@ class Favoris
     #[ORM\Column]
     private ?int $cibleId = null;
 
-    #[ORM\Column(length: 10, enumType: 'string')]
+    #[ORM\Column(length: 10)]
     private ?string $type = null;
 
     public function __construct()

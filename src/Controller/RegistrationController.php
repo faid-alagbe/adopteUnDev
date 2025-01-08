@@ -37,10 +37,8 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             $roles = $request->request->get('roles');
-            if (is_string($roles)) {
-                $roles = [$roles]; // Convertir en tableau si nécessaire
-            }
-            $user->setRoles($roles);
+            
+            $user->setRole($roles);
 
             $entityManager->persist($user);
             $entityManager->flush();

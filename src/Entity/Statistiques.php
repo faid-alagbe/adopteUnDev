@@ -20,7 +20,7 @@ class Statistiques
     #[ORM\Column]
     private ?int $cibleId = null;
 
-    #[ORM\Column(length: 10, enumType: 'string')]
+    #[ORM\Column]
     private ?string $type = null;
 
     #[ORM\Column]
