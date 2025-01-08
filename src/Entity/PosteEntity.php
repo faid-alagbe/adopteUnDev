@@ -14,6 +14,8 @@ class PosteEntity
     #[ORM\Column]
     private ?int $id = null;
 
+    private array $language = [];
+
     #[ORM\ManyToOne]
     private ?User $user = null;
 
@@ -37,6 +39,12 @@ class PosteEntity
         return $this->id;
     }
 
+
+    public function getLanguage(): array
+    {
+        return $this->language;
+    }
+
     public function getUser(): ?User
     {
         return $this->user;
@@ -45,6 +53,13 @@ class PosteEntity
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function setLanguage(array $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }
