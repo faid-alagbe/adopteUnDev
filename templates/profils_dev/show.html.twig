@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProfilsDev{% endblock %}
+
+{% block body %}
+    <h1>ProfilsDev</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ profils_dev.id }}</td>
+            </tr>
+            <tr>
+                <th>User_id</th>
+                <td>{{ profils_dev.userId }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ profils_dev.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ profils_dev.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Localisation</th>
+                <td>{{ profils_dev.localisation }}</td>
+            </tr>
+            <tr>
+                <th>Experience</th>
+                <td>{{ profils_dev.experience }}</td>
+            </tr>
+            <tr>
+                <th>Salaire_min</th>
+                <td>{{ profils_dev.salaireMin }}</td>
+            </tr>
+            <tr>
+                <th>Biographie</th>
+                <td>{{ profils_dev.biographie }}</td>
+            </tr>
+            <tr>
+                <th>Avatar</th>
+                <td>{{ profils_dev.avatar }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_profils_dev_index') }}">back to list</a>
+
+    <a href="{{ path('app_profils_dev_edit', {'id': profils_dev.id}) }}">edit</a>
+
+    {{ include('profils_dev/_delete_form.html.twig') }}
+{% endblock %}

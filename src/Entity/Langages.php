@@ -18,6 +18,24 @@ class Langages
     #[ORM\Column(length: 255, unique:true)]
     private ?string $nom = null;
 
+    /**
+     * @var Collection<int, Postes>
+     */
+    #[ORM\ManyToMany(targetEntity: Postes::class, mappedBy: 'langages')]
+    private Collection $postes;
+
+    /**
+     * @var Collection<int, ProfilsDev>
+     */
+    #[ORM\ManyToMany(targetEntity: ProfilsDev::class, mappedBy: 'langages')]
+    private Collection $profilsDevs;
+
+    public function __construct()
+    {
+        $this->postes = new ArrayCollection();
+        $this->profilsDevs = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,80 +52,48 @@ class Langages
         return $this;
     }
 
-    /**
-     * @return Collection<int, ProfilsDevLangages>
-     */
-    public function getProfilsDevLangages(): Collection
+    public function addPoste(Postes $poste): static
     {
-        return $this->profilsDevLangages;
-    }
-
-    public function addProfilsDevLangage(ProfilsDevLangages $profilsDevLangage): self
-    {
-        if (!$this->profilsDevLangages->contains($profilsDevLangage)) {
-            $this->profilsDevLangages->add($profilsDevLangage);
-            $profilsDevLangage->setLangage($this);
+        if (!$this->postes->contains($poste)) {
+            $this->postes->add($poste);
+            $poste->addLangage($this);
         }
+
         return $this;
     }
 
-    public function removeProfilsDevLangage(ProfilsDevLangages $profilsDevLangage): self
+    public function removePoste(Postes $poste): static
     {
-        if ($this->profilsDevLangages->removeElement($profilsDevLangage)) {
-            if ($profilsDevLangage->getLangage() === $this) {
-                $profilsDevLangage->setLangage(null);
-            }
+        if ($this->postes->removeElement($poste)) {
+            $poste->removeLangage($this);
         }
+
         return $this;
     }
 
     /**
-     * @return Collection<int, PostesTechnologies>
+     * @return Collection<int, ProfilsDev>
      */
-    public function getPostesTechnologies(): Collection
+    public function getProfilsDevs(): Collection
     {
-        return $this->postesTechnologies;
+        return $this->profilsDevs;
     }
 
-    public function addPostesTechnology(PostesTechnologies $postesTechnology): self
+    public function addProfilsDev(ProfilsDev $profilsDev): static
     {
-        if (!$this->postesTechnologies->contains($postesTechnology)) {
-            $this->postesTechnologies->add($postesTechnology);
-            $postesTechnology->setLangage($this);
+        if (!$this->profilsDevs->contains($profilsDev)) {
+            $this->profilsDevs->add($profilsDev);
+            $profilsDev->addLangage($this);
         }
+
         return $this;
     }
 
-    public function removePostesTechnology(PostesTechnologies $postesTechnology): self
+    public function removeProfilsDev(ProfilsDev $profilsDev): static
     {
-        if ($this->postesTechnologies->removeElement($postesTechnology)) {
-            if ($postesTechnology->getLangage() === $this) {
-                $postesTechnology->setLangage(null);
-            }
+        if ($this->profilsDevs->removeElement($profilsDev)) {
+            $profilsDev->removeLangage($this);
         }
-        return $this;
-    }
-
-    public function getProfilsDev(): ?ProfilsDev
-    {
-        return $this->profilsDev;
-    }
-
-    public function setProfilsDev(?ProfilsDev $profilsDev): static
-    {
-        $this->profilsDev = $profilsDev;
-
-        return $this;
-    }
-
-    public function getPostes(): ?Postes
-    {
-        return $this->postes;
-    }
-
-    public function setPostes(?Postes $postes): static
-    {
-        $this->postes = $postes;
 
         return $this;
     }

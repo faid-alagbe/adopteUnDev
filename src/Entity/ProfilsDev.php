@@ -45,29 +45,16 @@ class ProfilsDev
     private ?User $user = null;
 
     /**
-     * @var Collection<int, Evaluations>
+     * @var Collection<int, langages>
      */
-    #[ORM\OneToMany(targetEntity: Evaluations::class, mappedBy: 'developpeur', cascade: ['persist', 'remove'])]
-    private Collection $evaluations;
-
-    /**
-     * @var Collection<int, Statistiques>
-     */
-    #[ORM\OneToMany(targetEntity: Statistiques::class, mappedBy: 'profilDev')]
-    private Collection $statistiques;
-
-    /**
-     * @var Collection<int, Langages>
-     */
-    #[ORM\OneToMany(targetEntity: Langages::class, mappedBy: 'profilsDev')]
+    #[ORM\ManyToMany(targetEntity: Langages::class, inversedBy: 'profilsDevs')]
     private Collection $langages;
 
     public function __construct()
     {
         $this->langages = new ArrayCollection();
-        $this->evaluations = new ArrayCollection();
-        $this->statistiques = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -195,91 +182,25 @@ class ProfilsDev
     }
 
     /**
-     * @return Collection<int, ProfilsDevLangages>
+     * @return Collection<int, langages>
      */
     public function getLangages(): Collection
     {
         return $this->langages;
     }
 
-    public function addLangage(ProfilsDevLangages $langage): self
+    public function addLangage(langages $langage): static
     {
         if (!$this->langages->contains($langage)) {
             $this->langages->add($langage);
-            $langage->setProfil($this);
         }
 
         return $this;
     }
 
-    public function removeLangage(ProfilsDevLangages $langage): self
+    public function removeLangage(langages $langage): static
     {
-        if ($this->langages->removeElement($langage)) {
-            // set the owning side to null (unless already changed)
-            if ($langage->getProfil() === $this) {
-                $langage->setProfil(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Evaluations>
-     */
-    public function getEvaluations(): Collection
-    {
-        return $this->evaluations;
-    }
-
-    public function addEvaluation(Evaluations $evaluation): self
-    {
-        if (!$this->evaluations->contains($evaluation)) {
-            $this->evaluations->add($evaluation);
-            $evaluation->setDeveloppeur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvaluation(Evaluations $evaluation): self
-    {
-        if ($this->evaluations->removeElement($evaluation)) {
-            // set the owning side to null (unless already changed)
-            if ($evaluation->getDeveloppeur() === $this) {
-                $evaluation->setDeveloppeur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Statistiques>
-     */
-    public function getStatistiques(): Collection
-    {
-        return $this->statistiques;
-    }
-
-    public function addStatistique(Statistiques $statistique): self
-    {
-        if (!$this->statistiques->contains($statistique)) {
-            $this->statistiques->add($statistique);
-            $statistique->setProfilDev($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStatistique(Statistiques $statistique): self
-    {
-        if ($this->statistiques->removeElement($statistique)) {
-            // set the owning side to null (unless already changed)
-            if ($statistique->getProfilDev() === $this) {
-                $statistique->setProfilDev(null);
-            }
-        }
+        $this->langages->removeElement($langage);
 
         return $this;
     }

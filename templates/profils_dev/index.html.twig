@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProfilsDev index{% endblock %}
+
+{% block body %}
+    <h1>ProfilsDev index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>User_id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Localisation</th>
+                <th>Experience</th>
+                <th>Salaire_min</th>
+                <th>Biographie</th>
+                <th>Avatar</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for profils_dev in profils_devs %}
+            <tr>
+                <td>{{ profils_dev.id }}</td>
+                <td>{{ profils_dev.userId }}</td>
+                <td>{{ profils_dev.nom }}</td>
+                <td>{{ profils_dev.prenom }}</td>
+                <td>{{ profils_dev.localisation }}</td>
+                <td>{{ profils_dev.experience }}</td>
+                <td>{{ profils_dev.salaireMin }}</td>
+                <td>{{ profils_dev.biographie }}</td>
+                <td>{{ profils_dev.avatar }}</td>
+                <td>
+                    <a href="{{ path('app_profils_dev_show', {'id': profils_dev.id}) }}">show</a>
+                    <a href="{{ path('app_profils_dev_edit', {'id': profils_dev.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_profils_dev_new') }}">Create new</a>
+{% endblock %}

@@ -14,7 +14,6 @@
                 <th>Experience_requise</th>
                 <th>Salaire</th>
                 <th>Description</th>
-                <th>User_id</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -27,7 +26,6 @@
                 <td>{{ poste.experienceRequise }}</td>
                 <td>{{ poste.salaire }}</td>
                 <td>{{ poste.description }}</td>
-                <td>{{ poste.userId }}</td>
                 <td>
                     <a href="{{ path('app_postes_show', {'id': poste.id}) }}">show</a>
                     <a href="{{ path('app_postes_edit', {'id': poste.id}) }}">edit</a>
@@ -35,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

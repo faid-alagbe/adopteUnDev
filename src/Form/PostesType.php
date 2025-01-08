@@ -20,16 +20,14 @@ class PostesType extends AbstractType
             ->add('experience_requise')
             ->add('salaire')
             ->add('description')
-            ->add('user_id')
-            ->add('languages', EntityType::class, [
-                'class' => Langages::class,
-                'choice_label' => 'name',
-                'multiple' => true, // Permet de sélectionner plusieurs langues
-                'expanded' => true, // Affiche sous forme de cases à cocher (si souhaité)
-            ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
 'choice_label' => 'id',
+            ])
+            ->add('langages', EntityType::class, [
+                'class' => Langages::class,
+'choice_label' => 'id',
+'multiple' => true,
             ])
         ;
     }

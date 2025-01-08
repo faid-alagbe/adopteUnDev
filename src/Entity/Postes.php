@@ -36,14 +36,14 @@ class Postes
     private ?User $user = null;
 
     /**
-     * @var Collection<int, Statistiques>
+     * @var Collection<int, langages>
      */
-    #[ORM\OneToMany(targetEntity: Statistiques::class, mappedBy: 'poste')]
-    private Collection $statistiques;
+    #[ORM\ManyToMany(targetEntity: Langages::class, inversedBy: 'postes')]
+    private Collection $langages;
 
     public function __construct()
     {
-        $this->statistiques = new ArrayCollection();
+        $this->langages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,32 +124,28 @@ class Postes
     }
 
     /**
-     * @return Collection<int, Statistiques>
+     * @return Collection<int, langages>
      */
-    public function getStatistiques(): Collection
+    public function getLangages(): Collection
     {
-        return $this->statistiques;
+        return $this->langages;
     }
 
-    public function addStatistique(Statistiques $statistique): self
+    public function addLangage(langages $langage): static
     {
-        if (!$this->statistiques->contains($statistique)) {
-            $this->statistiques->add($statistique);
-            $statistique->setPoste($this);
+        if (!$this->langages->contains($langage)) {
+            $this->langages->add($langage);
         }
 
         return $this;
     }
 
-    public function removeStatistique(Statistiques $statistique): self
+    public function removeLangage(langages $langage): static
     {
-        if ($this->statistiques->removeElement($statistique)) {
-            // set the owning side to null (unless already changed)
-            if ($statistique->getPoste() === $this) {
-                $statistique->setPoste(null);
-            }
-        }
+        $this->langages->removeElement($langage);
 
         return $this;
     }
+
+   
 }
