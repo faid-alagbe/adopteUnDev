@@ -18,24 +18,6 @@ class Langages
     #[ORM\Column(length: 255, unique:true)]
     private ?string $nom = null;
 
-    /**
-     * @var Collection<int, ProfilsDevLangages>
-     */
-    #[ORM\OneToMany(targetEntity: ProfilsDevLangages::class, mappedBy: 'langage')]
-    private Collection $profilsDevLangages;
-
-    /**
-     * @var Collection<int, PostesTechnologies>
-     */
-    #[ORM\OneToMany(targetEntity: PostesTechnologies::class, mappedBy: 'langage')]
-    private Collection $postesTechnologies;
-
-    public function __construct()
-    {
-        $this->profilsDevLangages = new ArrayCollection();
-        $this->postesTechnologies = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +85,30 @@ class Langages
                 $postesTechnology->setLangage(null);
             }
         }
+        return $this;
+    }
+
+    public function getProfilsDev(): ?ProfilsDev
+    {
+        return $this->profilsDev;
+    }
+
+    public function setProfilsDev(?ProfilsDev $profilsDev): static
+    {
+        $this->profilsDev = $profilsDev;
+
+        return $this;
+    }
+
+    public function getPostes(): ?Postes
+    {
+        return $this->postes;
+    }
+
+    public function setPostes(?Postes $postes): static
+    {
+        $this->postes = $postes;
+
         return $this;
     }
 }

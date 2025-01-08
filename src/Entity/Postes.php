@@ -31,18 +31,9 @@ class Postes
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column]
-    private ?int $user_id = null;
-
     #[ORM\ManyToOne(inversedBy: 'postes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
-
-    /**
-     * @var Collection<int, PostesTechnologies>
-     */
-    #[ORM\OneToMany(targetEntity: PostesTechnologies::class, mappedBy: 'poste', cascade: ['persist', 'remove'])]
-    private Collection $technologies;
 
     /**
      * @var Collection<int, Statistiques>
@@ -52,7 +43,6 @@ class Postes
 
     public function __construct()
     {
-        $this->technologies = new ArrayCollection();
         $this->statistiques = new ArrayCollection();
     }
 
@@ -121,18 +111,6 @@ class Postes
         return $this;
     }
 
-    public function getUserId(): ?int
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(int $user_id): static
-    {
-        $this->user_id = $user_id;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -141,36 +119,6 @@ class Postes
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, PostesTechnologies>
-     */
-    public function getTechnologies(): Collection
-    {
-        return $this->technologies;
-    }
-
-    public function addTechnology(PostesTechnologies $technology): self
-    {
-        if (!$this->technologies->contains($technology)) {
-            $this->technologies->add($technology);
-            $technology->setPoste($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTechnology(PostesTechnologies $technology): self
-    {
-        if ($this->technologies->removeElement($technology)) {
-            // set the owning side to null (unless already changed)
-            if ($technology->getPoste() === $this) {
-                $technology->setPoste(null);
-            }
-        }
 
         return $this;
     }

@@ -45,12 +45,6 @@ class ProfilsDev
     private ?User $user = null;
 
     /**
-     * @var Collection<int, ProfilsDevLangages>
-     */
-    #[ORM\OneToMany(targetEntity: ProfilsDevLangages::class, mappedBy: 'profil', cascade: ['persist', 'remove'])]
-    private Collection $langages;
-
-    /**
      * @var Collection<int, Evaluations>
      */
     #[ORM\OneToMany(targetEntity: Evaluations::class, mappedBy: 'developpeur', cascade: ['persist', 'remove'])]
@@ -61,6 +55,12 @@ class ProfilsDev
      */
     #[ORM\OneToMany(targetEntity: Statistiques::class, mappedBy: 'profilDev')]
     private Collection $statistiques;
+
+    /**
+     * @var Collection<int, Langages>
+     */
+    #[ORM\OneToMany(targetEntity: Langages::class, mappedBy: 'profilsDev')]
+    private Collection $langages;
 
     public function __construct()
     {
