@@ -15,7 +15,7 @@ class Langages
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, unique:true)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $nom = null;
 
     /**
@@ -101,5 +101,10 @@ class Langages
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom; // Remplacez "nom" par la propriété pertinente de l'entité Langages
     }
 }

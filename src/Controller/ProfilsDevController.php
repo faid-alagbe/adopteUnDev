@@ -12,7 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/profils/dev')]
-final class ProfilsDevController extends AbstractController{
+final class ProfilsDevController extends AbstractController
+{
     #[Route(name: 'app_profils_dev_index', methods: ['GET'])]
     public function index(ProfilsDevRepository $profilsDevRepository): Response
     {
@@ -49,28 +50,10 @@ final class ProfilsDevController extends AbstractController{
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_profils_dev_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ProfilsDev $profilsDev, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ProfilsDevType::class, $profilsDev);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_profils_dev_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('profils_dev/edit.html.twig', [
-            'profils_dev' => $profilsDev,
-            'form' => $form,
-        ]);
-    }
-
     #[Route('/{id}', name: 'app_profils_dev_delete', methods: ['POST'])]
     public function delete(Request $request, ProfilsDev $profilsDev, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$profilsDev->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $profilsDev->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($profilsDev);
             $entityManager->flush();
         }

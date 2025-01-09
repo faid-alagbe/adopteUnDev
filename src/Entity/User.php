@@ -111,9 +111,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function eraseCredentials(): void
-    {
-    }
+    public function eraseCredentials(): void {}
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -133,26 +131,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     public function setProfilsDev(?ProfilsDev $profilsDev): self
-{
-    if ($this->profilsDev === $profilsDev) {
-        return $this; // Si l'association est déjà faite, on sort
+    {
+        if ($this->profilsDev === $profilsDev) {
+            return $this; // Si l'association est déjà faite, on sort
+        }
+
+        // Si un ancien ProfilsDev est associé, on le dissocie
+        if ($this->profilsDev !== null) {
+            $this->profilsDev->setUser(null);
+        }
+
+        // Associe le nouveau ProfilsDev à cet utilisateur
+        $this->profilsDev = $profilsDev;
+
+        // Si le nouveau ProfilsDev n'est pas déjà lié à cet utilisateur, on le lie
+        if ($profilsDev !== null && $profilsDev->getUser() !== $this) {
+            $profilsDev->setUser($this);
+        }
+
+        return $this;
     }
-
-    // Si un ancien ProfilsDev est associé, on le dissocie
-    if ($this->profilsDev !== null) {
-        $this->profilsDev->setUser(null);
-    }
-
-    // Associe le nouveau ProfilsDev à cet utilisateur
-    $this->profilsDev = $profilsDev;
-
-    // Si le nouveau ProfilsDev n'est pas déjà lié à cet utilisateur, on le lie
-    if ($profilsDev !== null && $profilsDev->getUser() !== $this) {
-        $profilsDev->setUser($this);
-    }
-
-    return $this;
-}
 
     /* public function setProfilsDev(?ProfilsDev $profilsDev): self
     {
