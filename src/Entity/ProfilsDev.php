@@ -16,9 +16,6 @@ class ProfilsDev
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $user_id = null;
-
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
@@ -64,18 +61,6 @@ class ProfilsDev
     public function setId(int $id): static
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    public function getUserId(): ?int
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(int $user_id): static
-    {
-        $this->user_id = $user_id;
 
         return $this;
     }
@@ -168,11 +153,18 @@ class ProfilsDev
     {
         return $this->user;
     }
-
-    public function setUser(?User $user): static
+    
+    public function setUser(?User $user): self
     {
-        // set the owning side of the relation if necessary
-        if ($user->getProfilsDev() !== $this) {
+        if ($this->user === $user) {
+            return $this; // Éviter une boucle
+        }
+
+        if ($user === null && $this->user !== null) {
+            $this->user->setProfilsDev(null);
+        }
+
+        if ($user !== null && $user->getProfilsDev() !== $this) {
             $user->setProfilsDev($this);
         }
 
@@ -180,6 +172,17 @@ class ProfilsDev
 
         return $this;
     }
+    /* public function setUser(?User $user): static
+    {
+        // set the owning side of the relation if necessary
+        if ($user->getProfilsDev() === null || $user->getProfilsDev()->getId() !== $this->getId()) {
+            $user->setProfilsDev($this);
+        }
+
+        $this->user = $user;
+
+        return $this;
+    } */
 
     /**
      * @return Collection<int, langages>

@@ -131,7 +131,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->profilsDev;
     }
 
+
     public function setProfilsDev(?ProfilsDev $profilsDev): self
+{
+    if ($this->profilsDev === $profilsDev) {
+        return $this; // Si l'association est déjà faite, on sort
+    }
+
+    // Si un ancien ProfilsDev est associé, on le dissocie
+    if ($this->profilsDev !== null) {
+        $this->profilsDev->setUser(null);
+    }
+
+    // Associe le nouveau ProfilsDev à cet utilisateur
+    $this->profilsDev = $profilsDev;
+
+    // Si le nouveau ProfilsDev n'est pas déjà lié à cet utilisateur, on le lie
+    if ($profilsDev !== null && $profilsDev->getUser() !== $this) {
+        $profilsDev->setUser($this);
+    }
+
+    return $this;
+}
+
+    /* public function setProfilsDev(?ProfilsDev $profilsDev): self
     {
         if ($profilsDev === null && $this->profilsDev !== null) {
             $this->profilsDev->setUser(null);
@@ -141,7 +164,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
         $this->profilsDev = $profilsDev;
         return $this;
-    }
+    } */
 
     /**
      * @return Collection<int, Postes>
