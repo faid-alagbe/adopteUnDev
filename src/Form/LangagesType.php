@@ -16,16 +16,6 @@ class LangagesType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('postes', EntityType::class, [
-                'class' => Postes::class,
-'choice_label' => 'id',
-'multiple' => true,
-            ])
-            ->add('profilsDevs', EntityType::class, [
-                'class' => ProfilsDev::class,
-'choice_label' => 'id',
-'multiple' => true,
-            ])
         ;
     }
 

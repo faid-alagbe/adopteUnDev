@@ -182,7 +182,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->messagesSent->contains($message)) {
             $this->messagesSent->add($message);
-            $message->setExpediteur($this);
+            $message->setExpediteurId($this->id);
         }
         return $this;
     }
@@ -190,8 +190,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeMessageSent(Messages $message): self
     {
         if ($this->messagesSent->removeElement($message)) {
-            if ($message->getExpediteur() === $this) {
-                $message->setExpediteur(null);
+            if ($message->getExpediteurId() === $this->id) {
+                $message->setExpediteurId(null);
             }
         }
         return $this;
@@ -209,7 +209,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->messagesReceived->contains($message)) {
             $this->messagesReceived->add($message);
-            $message->setDestinataire($this);
+            $message->setDestinataireId($this->id);
         }
         return $this;
     }
@@ -217,8 +217,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeMessageReceived(Messages $message): self
     {
         if ($this->messagesReceived->removeElement($message)) {
-            if ($message->getDestinataire() === $this) {
-                $message->setDestinataire(null);
+            if ($message->getDestinataireId() === $this->id) {
+                $message->setDestinataireId(null);
             }
         }
         return $this;
@@ -236,7 +236,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->favoris->contains($favori)) {
             $this->favoris->add($favori);
-            $favori->setUser($this);
+            $favori->setUserId($this->id);
         }
         return $this;
     }
@@ -244,8 +244,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeFavori(Favoris $favori): self
     {
         if ($this->favoris->removeElement($favori)) {
-            if ($favori->getUser() === $this) {
-                $favori->setUser(null);
+            if ($favori->getUserId() === $this->id) {
+                $favori->setUserId(null);
             }
         }
         return $this;

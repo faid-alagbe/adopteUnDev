@@ -2,9 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Langages;
 use App\Entity\Postes;
 use App\Entity\User;
-use App\Entity\Langages;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

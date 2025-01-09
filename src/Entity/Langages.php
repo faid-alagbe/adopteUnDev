@@ -52,6 +52,11 @@ class Langages
         return $this;
     }
 
+    public function getPostes(): Collection
+    {
+        return $this->postes;
+    }
+
     public function addPoste(Postes $poste): static
     {
         if (!$this->postes->contains($poste)) {

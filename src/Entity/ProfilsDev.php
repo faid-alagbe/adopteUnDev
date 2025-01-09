@@ -169,7 +169,7 @@ class ProfilsDev
         return $this->user;
     }
 
-    public function setUser(User $user): static
+    public function setUser(?User $user): static
     {
         // set the owning side of the relation if necessary
         if ($user->getProfilsDev() !== $this) {

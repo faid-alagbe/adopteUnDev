@@ -41,7 +41,7 @@ class Messages
         return $this->expediteurId;
     }
 
-    public function setExpediteurId(int $expediteurId): self
+    public function setExpediteurId(?int $expediteurId): self
     {
         $this->expediteurId = $expediteurId;
         return $this;
@@ -52,7 +52,7 @@ class Messages
         return $this->destinataireId;
     }
 
-    public function setDestinataireId(int $destinataireId): self
+    public function setDestinataireId(?int $destinataireId): self
     {
         $this->destinataireId = $destinataireId;
         return $this;

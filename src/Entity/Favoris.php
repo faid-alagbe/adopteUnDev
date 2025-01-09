@@ -40,7 +40,7 @@ class Favoris
         return $this->userId;
     }
 
-    public function setUserId(int $userId): self
+    public function setUserId(?int $userId): self
     {
         $this->userId = $userId;
         return $this;
