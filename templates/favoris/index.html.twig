@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Développeurs Favoris{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <h4 class="mb-sm-0">Mes Développeurs Favoris</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        {% if developpeurs|length > 0 %}
+            {% for developpeur in developpeurs %}
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    {% if developpeur.photo %}
+                                        <img src="{{ asset('uploads/photos/' ~ developpeur.photo) }}" 
+                                             alt="Photo de profil" 
+                                             class="avatar-lg rounded-circle">
+                                    {% else %}
+                                        <div class="avatar-lg rounded-circle bg-primary">
+                                            <span class="text-white display-4">
+                                                {{ developpeur.prenom|first|upper }}
+                                            </span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="font-size-16 mb-1">
+                                        <a href="{{ path('app_profils_dev_show', {'id': developpeur.id}) }}" 
+                                           class="text-dark">
+                                            {{ developpeur.prenom }} {{ developpeur.nom }}
+                                        </a>
+                                    </h5>
+                                    <p class="text-muted mb-2">{{ developpeur.titre }}</p>
+                                    
+                                    {% if developpeur.langages %}
+                                        <div class="mb-3">
+                                            {% for langage in developpeur.langages|slice(0, 3) %}
+                                                <span class="badge bg-primary me-1">
+                                                    {{ langage.nom }}
+                                                </span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <a href="{{ path('app_profils_dev_show', {'id': developpeur.id}) }}" 
+                                   class="btn btn-primary btn-sm">
+                                    Voir le profil
+                                </a>
+                                <button type="button" 
+                                        class="btn btn-danger btn-sm btn-remove-favorite"
+                                        data-dev-id="{{ developpeur.id }}">
+                                    <i class="fas fa-heart-broken me-1"></i>
+                                    Retirer des favoris
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center py-5">
+                        <h3 class="text-muted mb-3">Aucun développeur en favoris</h3>
+                        <p>Parcourez les profils des développeurs et ajoutez-les à vos favoris pour les retrouver ici.</p>
+                        <a href="{{ path('app_profils_dev_index') }}" class="btn btn-primary">
+                            Découvrir les développeurs
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion du retrait des favoris
+    document.querySelectorAll('.btn-remove-favorite').forEach(button => {
+        button.addEventListener('click', function() {
+            const devId = this.dataset.devId;
+            const card = this.closest('.col-xl-3');
+            
+            if (confirm('Voulez-vous vraiment retirer ce développeur de vos favoris ?')) {
+                fetch(`/favoris/retirer/${devId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Animation de suppression
+                    card.style.transition = 'all 0.3s ease';
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.8)';
+                    
+                    setTimeout(() => {
+                        card.remove();
+                        
+                        // Vérifier s'il reste des favoris
+                        const remainingCards = document.querySelectorAll('.col-xl-3');
+                        if (remainingCards.length === 0) {
+                            location.reload(); // Recharger pour afficher le message "Aucun favori"
+                        }
+                    }, 300);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Une erreur est survenue lors de la suppression du favori.');
+                });
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
