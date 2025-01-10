@@ -148,6 +148,7 @@ class LandingController extends AbstractController
 
             return $this->redirectToRoute('app_profil_company', [], Response::HTTP_SEE_OTHER);
         }
+        
         return $this->render('company/edit.html.twig', [
             'company' => $profilsCompany,
             'form' => $form,

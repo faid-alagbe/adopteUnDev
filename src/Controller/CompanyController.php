@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Entity\Company;
 use App\Form\CompanyType;
 use App\Repository\CompanyRepository;
+use App\Repository\FavorisRepository;
+use App\Entity\Favoris;
 use App\Repository\PostesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/company')]
 final class CompanyController extends AbstractController{
     #[Route(name: 'target_pathComapany', methods: ['GET'])]
-    public function index(PostesRepository $postesRepository): Response
+    public function index(PostesRepository $postesRepository, FavorisRepository $favorisRepository): Response
     {
         $user = $this->getUser();
 
@@ -35,9 +37,20 @@ final class CompanyController extends AbstractController{
             return $this->redirectToRoute('app_profil_company', [], Response::HTTP_SEE_OTHER);
         }
 
+        if (!$user || !$this->isGranted('ROLE_COMPANY')) {
+            throw $this->createAccessDeniedException('Accès réservé aux entreprises.');
+        }
+
+        // Récupérer tous les favoris de l'entreprise
+        $favoris = $favorisRepository->findBy([
+            'userId' => $user->getId(),
+            'type' => Favoris::TYPE_PROFIL
+        ]);
+
         return $this->render('landing/presentationCompany.html.twig', [
             'postes' => $postesRepository->findLastFour(),
             'profils_company' => $company,
+            'favoris' => $favoris,
         ]);
     }
 
