@@ -16,6 +16,15 @@ class PostesRepository extends ServiceEntityRepository
         parent::__construct($registry, Postes::class);
     }
 
+    public function findLastFour()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC') 
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Postes[] Returns an array of Postes objects
     //     */

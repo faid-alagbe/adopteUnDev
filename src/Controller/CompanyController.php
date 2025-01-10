@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Company;
 use App\Form\CompanyType;
 use App\Repository\CompanyRepository;
+use App\Repository\PostesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/company')]
 final class CompanyController extends AbstractController{
     #[Route(name: 'target_pathComapany', methods: ['GET'])]
-    public function index(): Response
+    public function index(PostesRepository $postesRepository): Response
     {
         $user = $this->getUser();
 
@@ -35,6 +36,7 @@ final class CompanyController extends AbstractController{
         }
 
         return $this->render('landing/presentationCompany.html.twig', [
+            'postes' => $postesRepository->findLastFour(),
             'profils_company' => $company,
         ]);
     }

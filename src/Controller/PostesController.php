@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Postes;
+use App\Entity\User;
 use App\Form\PostesType;
 use App\Repository\PostesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,19 +17,45 @@ final class PostesController extends AbstractController{
     #[Route(name: 'app_postes_index', methods: ['GET'])]
     public function index(PostesRepository $postesRepository): Response
     {
+        
+        $user = $this->getUser();
+        
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+        
+        if (!$user instanceof User) {
+            throw new \LogicException('L\'utilisateur connecté n\'est pas valide.');
+        }
+
+        $profilsCompany = $user->getCompany();
+    
         return $this->render('postes/index.html.twig', [
             'postes' => $postesRepository->findAll(),
+            'profils_company' => $profilsCompany,
         ]);
     }
 
     #[Route('/new', name: 'app_postes_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $poste = new Postes();
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        if (!$user instanceof User) {
+            throw new \LogicException('L\'utilisateur connecté n\'est pas valide.');
+        }
+
+        if ($user->getRole() === 'ROLE_COMPANY') {
+            $poste = new Postes();
         $form = $this->createForm(PostesType::class, $poste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $poste->setUser($user);
             $entityManager->persist($poste);
             $entityManager->flush();
 
@@ -39,6 +66,8 @@ final class PostesController extends AbstractController{
             'poste' => $poste,
             'form' => $form,
         ]);
+    }
+    throw $this->createNotFoundException('Seule les entreprises peuvent créer un poste.');   
     }
 
     #[Route('/{id}', name: 'app_postes_show', methods: ['GET'])]

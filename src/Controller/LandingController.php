@@ -78,7 +78,7 @@ class LandingController extends AbstractController
         ]);
     }
 
-    #[Route('/companyProfil', name: 'app_profil_company', methods: ['GET', 'POST'])]
+    #[Route('/company/profil', name: 'app_profil_company', methods: ['GET', 'POST'])]
     public function profiCompagni(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
