@@ -15,6 +15,7 @@ use App\Repository\CompanyRepository;
 use App\Repository\LangagesRepository;
 use App\Repository\PostesRepository;
 use App\Repository\ProfilsDevRepository;
+use App\Repository\PostesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -82,7 +83,7 @@ class LandingController extends AbstractController
     }
 
     #[Route('/company/profil', name: 'app_profil_company', methods: ['GET', 'POST'])]
-    public function profiCompagni(Request $request, EntityManagerInterface $entityManager): Response
+    public function profiCompagni(Request $request, EntityManagerInterface $entityManager,ProfilsDevRepository $profilsDevRepository, PostesRepository $postesRepository): Response
     {
         $user = $this->getUser();
 
@@ -112,13 +113,13 @@ class LandingController extends AbstractController
                 'profils_company' => $profilsCompany,
                 'form' => $form,
             ]);
-            /* throw $this->createNotFoundException('Profil développeur introuvable pour cet utilisateur.'); */
         }
 
         $profilsCompany = $user->getCompany();
 
         return $this->render('company/show.html.twig', [
             'profils_company' => $profilsCompany,
+            'developpeurs' => $profilsDevRepository->findAll(),
         ]);
     }
 
@@ -150,6 +151,7 @@ class LandingController extends AbstractController
 
             return $this->redirectToRoute('app_profil_company', [], Response::HTTP_SEE_OTHER);
         }
+        
         return $this->render('company/edit.html.twig', [
             'company' => $profilsCompany,
             'form' => $form,
