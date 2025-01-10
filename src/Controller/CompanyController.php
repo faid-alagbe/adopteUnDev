@@ -2,22 +2,43 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Company;
 use App\Form\CompanyType;
 use App\Repository\CompanyRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\CompanyCrters;
+
 
 #[Route('/company')]
-final class CompanyController extends AbstractController{
-    #[Route(name: 'app_company_index', methods: ['GET'])]
-    public function index(CompanyRepository $companyRepository): Response
+final class CompanyController extends AbstractController
+{
+    #[Route(name: 'target_pathComapany', methods: ['GET'])]
+    public function index(): Response
     {
-        return $this->render('company/index.html.twig', [
-            'companies' => $companyRepository->findAll(),
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        if (!$user instanceof User) {
+            throw new \LogicException('L\'utilisateur connecté n\'est pas valide.');
+        }
+
+        // Récupérer la compagnie liée
+        $company = $user->getCompany();
+
+        if (!$company) {
+            return $this->redirectToRoute('app_profil_company', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('landing/presentationCompany.html.twig', [
+            'profils_company' => $company,
         ]);
     }
 
@@ -35,19 +56,21 @@ final class CompanyController extends AbstractController{
             return $this->redirectToRoute('app_company_index', [], Response::HTTP_SEE_OTHER);
         }
 
+
+
         return $this->render('company/new.html.twig', [
             'company' => $company,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_company_show', methods: ['GET'])]
+    /* #[Route('/{id}', name: 'app_company_show', methods: ['GET'])]
     public function show(Company $company): Response
     {
         return $this->render('company/show.html.twig', [
             'company' => $company,
         ]);
-    }
+    } */
 
     #[Route('/{id}/edit', name: 'app_company_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Company $company, EntityManagerInterface $entityManager): Response
@@ -67,7 +90,7 @@ final class CompanyController extends AbstractController{
         ]);
     }
 
-    #[Route('/{id}', name: 'app_company_delete', methods: ['POST'])]
+    /* #[Route('/{id}', name: 'app_company_delete', methods: ['POST'])]
     public function delete(Request $request, Company $company, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$company->getId(), $request->getPayload()->getString('_token'))) {
@@ -76,5 +99,5 @@ final class CompanyController extends AbstractController{
         }
 
         return $this->redirectToRoute('app_company_index', [], Response::HTTP_SEE_OTHER);
-    }
+    } */
 }

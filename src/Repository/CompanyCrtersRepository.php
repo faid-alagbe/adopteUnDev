@@ -16,6 +16,28 @@ class CompanyCrtersRepository extends ServiceEntityRepository
         parent::__construct($registry, CompanyCrters::class);
     }
 
+
+    public function findByCriteria(array $langages, string $localisation, int $experience, int $salaire): array
+    {
+        return $this->createQueryBuilder('d')
+            ->join('d.profilsDevLangages', 'dl') // Association entre `ProfilsDev` et `ProfilsDevLangages`.
+            ->join('dl.langage', 'l')           // Association entre `ProfilsDevLangages` et `Langages`.
+            ->where('l.id IN (:langages)')
+            ->andWhere('d.localisation = :localisation')
+            ->andWhere('d.experience >= :experience')
+            ->andWhere('d.salaireMin BETWEEN :salaire - 1000 AND :salaire + 1000')
+            ->setParameter('langages', $langages)
+            ->setParameter('localisation', $localisation)
+            ->setParameter('experience', $experience)
+            ->setParameter('salaire', $salaire)
+            ->select('d, COUNT(l.id) AS HIDDEN langagesCount') // Comptage des langages trouvés
+            ->groupBy('d.id')
+            ->orderBy('langagesCount', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+}
+
 //    /**
 //     * @return CompanyCrters[] Returns an array of CompanyCrters objects
 //     */
@@ -40,4 +62,3 @@ class CompanyCrtersRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-}

@@ -88,11 +88,6 @@ class __TwigTemplate_0b236df34d1e4870bd037b9474222e94 extends Template
         // line 8
         yield Twig\Extension\CoreExtension::include($this->env, $context, "company/_form.html.twig");
         yield "
-
-    <a href=\"";
-        // line 10
-        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_company_index");
-        yield "\">back to list</a>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -121,7 +116,7 @@ class __TwigTemplate_0b236df34d1e4870bd037b9474222e94 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  94 => 10,  89 => 8,  85 => 6,  75 => 5,  58 => 3,  41 => 1,);
+        return array (  89 => 8,  85 => 6,  75 => 5,  58 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -134,8 +129,6 @@ class __TwigTemplate_0b236df34d1e4870bd037b9474222e94 extends Template
     <h1>Create new Company</h1>
 
     {{ include('company/_form.html.twig') }}
-
-    <a href=\"{{ path('app_company_index') }}\">back to list</a>
 {% endblock %}
 ", "company/new.html.twig", "C:\\Users\\EMA\\Documents\\php istic\\projet\\adopteUnDev\\templates\\company\\new.html.twig");
     }

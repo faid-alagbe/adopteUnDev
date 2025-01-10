@@ -39,6 +39,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?ProfilsDev $profilsDev = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Company $profilsCompany = null;
+
     #[ORM\OneToMany(targetEntity: Postes::class, mappedBy: 'user')]
     private Collection $postes;
 
@@ -129,6 +132,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->profilsDev;
     }
 
+    public function getCompany(): ?Company
+    {
+        return $this->profilsCompany;
+    }
+
 
     public function setProfilsDev(?ProfilsDev $profilsDev): self
     {
@@ -147,6 +155,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // Si le nouveau ProfilsDev n'est pas déjà lié à cet utilisateur, on le lie
         if ($profilsDev !== null && $profilsDev->getUser() !== $this) {
             $profilsDev->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function setProfilsCompany(?Company $profilsCompany): self
+    {
+        if ($this->profilsCompany === $profilsCompany) {
+            return $this; // Si l'association est déjà faite, on sort
+        }
+
+        // Si un ancien ProfilsDev est associé, on le dissocie
+        if ($this->profilsCompany !== null) {
+            $this->profilsCompany->setUser(null);
+        }
+
+        // Associe le nouveau ProfilsDev à cet utilisateur
+        $this->profilsCompany = $profilsCompany;
+
+        // Si le nouveau ProfilsDev n'est pas déjà lié à cet utilisateur, on le lie
+        if ($profilsCompany !== null && $profilsCompany->getUser() !== $this) {
+            $profilsCompany->setUser($this);
         }
 
         return $this;

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CompanyCrtersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CompanyCrtersRepository::class)]
@@ -28,6 +30,17 @@ class CompanyCrters
     #[ORM\OneToOne(inversedBy: 'companyCrters', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Company $company = null;
+
+    /**
+     * @var Collection<int, Langages>
+     */
+    #[ORM\ManyToMany(targetEntity: Langages::class, inversedBy: 'companyCrters')]
+    private Collection $technologies;
+
+    public function __construct()
+    {
+        $this->technologies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +103,30 @@ class CompanyCrters
     public function setCompany(Company $company): static
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Langages>
+     */
+    public function getTechnologies(): Collection
+    {
+        return $this->technologies;
+    }
+
+    public function addTechnology(Langages $technology): static
+    {
+        if (!$this->technologies->contains($technology)) {
+            $this->technologies->add($technology);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnology(Langages $technology): static
+    {
+        $this->technologies->removeElement($technology);
 
         return $this;
     }

@@ -30,6 +30,7 @@ class User extends \App\Entity\User implements \Doctrine\ORM\Proxy\InternalProxy
         "\0".parent::class."\0".'messagesSent' => [parent::class, 'messagesSent', null],
         "\0".parent::class."\0".'password' => [parent::class, 'password', null],
         "\0".parent::class."\0".'postes' => [parent::class, 'postes', null],
+        "\0".parent::class."\0".'profilsCompany' => [parent::class, 'profilsCompany', null],
         "\0".parent::class."\0".'profilsDev' => [parent::class, 'profilsDev', null],
         "\0".parent::class."\0".'role' => [parent::class, 'role', null],
         'createdAt' => [parent::class, 'createdAt', null],
@@ -40,6 +41,7 @@ class User extends \App\Entity\User implements \Doctrine\ORM\Proxy\InternalProxy
         'messagesSent' => [parent::class, 'messagesSent', null],
         'password' => [parent::class, 'password', null],
         'postes' => [parent::class, 'postes', null],
+        'profilsCompany' => [parent::class, 'profilsCompany', null],
         'profilsDev' => [parent::class, 'profilsDev', null],
         'role' => [parent::class, 'role', null],
     ];
