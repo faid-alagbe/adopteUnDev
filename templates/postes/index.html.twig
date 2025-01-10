@@ -162,7 +162,7 @@
 								<span class="d-flex align-items-center">
 									<img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
 									<span class="text-start ms-xl-2">
-										<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ profils_company.nom }}</span>
+										<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ profils_company ? profils_company.nom : 'Nom non disponible' }}</span>
 										<span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Entreprise</span>
 									</span>
 								</span>
@@ -170,7 +170,7 @@
 							<div
 								class="dropdown-menu dropdown-menu-end">
 								<!-- item-->
-								<h6 class="dropdown-header">Bienvenue {{ profils_company.nom }}</h6>
+								<h6 class="dropdown-header">Bienvenue {{ profils_company ? profils_company.nom : 'Nom non disponible' }}</h6>
 								<a class="dropdown-item" href="{{ url('app_profil_company')}}">
 									<i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
 									<span class="align-middle">Profile de l'Entreprise</span>
@@ -251,7 +251,7 @@
 					<span class="d-flex align-items-center gap-2">
 						<img class="rounded header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
 						<span class="text-start">
-							<span class="d-block fw-medium sidebar-user-name-text">{{ profils_company.nom }}</span>
+							<span class="d-block fw-medium sidebar-user-name-text">{{ profils_company ? profils_company.nom : 'Nom non disponible' }}</span>
 							<span class="d-block fs-14 sidebar-user-name-sub-text">
 								<i class="ri ri-circle-fill fs-10 text-success align-baseline"></i>
 								<span class="align-middle">Online</span>
@@ -262,7 +262,7 @@
 				<div
 					class="dropdown-menu dropdown-menu-end">
 					<!-- item-->
-					<h6 class="dropdown-header">Bienvenue {{ profils_company.nom }}</h6>
+					<h6 class="dropdown-header">Bienvenue {{ profils_company ? profils_company.nom : 'Nom non disponible' }}</h6>
 						<a class="dropdown-item" href="{{ url('app_profil_company')}}">
 							<i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
 							<span class="align-middle">Profile de l'Entreprise</span>
@@ -336,7 +336,7 @@
 												<ul class="list-inline text-muted mb-3">
 													<li class="list-inline-item">
 														<i class="ri-building-line align-bottom me-1"></i>
-														{{ profils_company.nom }}
+														{{ profils_company ? profils_company.nom : 'Nom non disponible' }}
 													</li>
 													<li class="list-inline-item">
 														<i class="ri-map-pin-2-line align-bottom me-1"></i>

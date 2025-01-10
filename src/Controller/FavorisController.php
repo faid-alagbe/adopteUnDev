@@ -6,6 +6,7 @@ use App\Entity\Favoris;
 use App\Entity\ProfilsDev;
 use App\Repository\FavorisRepository;
 use App\Repository\ProfilsDevRepository;
+use App\Repository\PostesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,18 +20,20 @@ class FavorisController extends AbstractController
     private EntityManagerInterface $entityManager;
     private FavorisRepository $favorisRepository;
     private ProfilsDevRepository $profilsDevRepository;
-
+    private PostesRepository $postesRepository;
     public function __construct(
         EntityManagerInterface $entityManager,
         FavorisRepository $favorisRepository,
-        ProfilsDevRepository $profilsDevRepository
+        ProfilsDevRepository $profilsDevRepository,
+        PostesRepository $postesRepository
     ) {
         $this->entityManager = $entityManager;
         $this->favorisRepository = $favorisRepository;
         $this->profilsDevRepository = $profilsDevRepository;
+        $this->postesRepository = $postesRepository;
     }
 
-    #[Route('/', name: 'app_favoris_index', methods: ['GET'])]
+    #[Route('/company', name: 'app_favoris_company', methods: ['GET'])]
     #[IsGranted('ROLE_COMPANY')]
     public function index(): Response
     {
@@ -120,4 +123,78 @@ class FavorisController extends AbstractController
             'estFavori' => $favori !== null
         ]);
     }
+
+    #[Route('/developpeurs', name: 'app_favoris_postes', methods: ['GET'])]
+    #[IsGranted('ROLE_DEV')]
+    public function postesfavoris(FavorisRepository $favorisRepository): Response
+    {
+        $user = $this->getUser();
+        $favoris = $this->favorisRepository->findBy(['userId' => $user->getId(), 'type' => 'poste']);
+        
+        // Récupérer les postes des entreprises
+        $postesIds = array_map(fn($favori) => $favori->getCibleId(), $favoris);
+        $postes = $this->postesRepository->findBy(['id' => $postesIds]);
+
+        return $this->render('favoris/postesFavoris.html.twig', [
+            'favoris' => $favoris,
+            'postes' => $postes,
+        ]);
+    }
+    #[Route('/ajouter/{posteId}', name: 'app_favoris_poste_ajouter', methods: ['POST'])]
+    #[IsGranted('ROLE_DEV')]
+    public function ajouterF(int $posteId): JsonResponse
+    {
+        $user = $this->getUser();
+        
+        // Vérifier si le poste existe
+        $poste = $this->postesRepository->find($posteId);
+        if (!$poste) {
+            return new JsonResponse(['message' => 'Poste non trouvé'], Response::HTTP_NOT_FOUND);
+        }
+
+        // Vérifier si le favori existe déjà
+        $existingFavori = $this->favorisRepository->findOneBy([
+            'userId' => $user->getId(),
+            'cibleId' => $posteId,
+            'type' => Favoris::TYPE_POSTE
+        ]);
+
+        if ($existingFavori) {
+            return new JsonResponse(['message' => 'Déjà dans les favoris'], Response::HTTP_BAD_REQUEST);
+        }
+
+        // Créer un nouveau favori
+        $favori = new Favoris();
+        $favori->setUserId($user->getId());
+        $favori->setCibleId($posteId);
+        $favori->setType(Favoris::TYPE_POSTE);
+
+        $this->entityManager->persist($favori);
+        $this->entityManager->flush();
+
+        return new JsonResponse(['message' => 'Ajouté aux favoris'], Response::HTTP_CREATED);
+    }
+
+    #[Route('/retirer/{posteId}', name: 'app_favoris_poste_retirer', methods: ['DELETE'])]
+    #[IsGranted('ROLE_DEV')]
+    public function retirerF(int $posteId): JsonResponse
+    {
+        $user = $this->getUser();
+        
+        $favori = $this->favorisRepository->findOneBy([
+            'userId' => $user->getId(),
+            'cibleId' => $posteId,
+            'type' => Favoris::TYPE_POSTE
+        ]);
+
+        if (!$favori) {
+            return new JsonResponse(['message' => 'Favori non trouvé'], Response::HTTP_NOT_FOUND);
+        }
+
+        $this->entityManager->remove($favori);
+        $this->entityManager->flush();
+
+        return new JsonResponse(['message' => 'Retiré des favoris'], Response::HTTP_OK);
+    }
+
 }

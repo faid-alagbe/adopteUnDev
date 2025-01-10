@@ -71,10 +71,10 @@ final class PostesController extends AbstractController{
     }
 
     #[Route('/{id}', name: 'app_postes_show', methods: ['GET'])]
-    public function show(Postes $poste): Response
+    public function show(Postes $postes): Response
     {
         return $this->render('postes/show.html.twig', [
-            'poste' => $poste,
+            'postes' => $postes,
         ]);
     }
 

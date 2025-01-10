@@ -3,21 +3,38 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\Favoris;
+use App\Entity\ProfilsDev;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
-use App\Entity\ProfilsDev;
 use App\Form\CompanyType;
 use App\Form\ProfilsDevType;
 use App\Repository\ProfilsDevRepository;
+use App\Repository\FavorisRepository;
 use App\Repository\PostesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class LandingController extends AbstractController
 {
+    private $favorisRepository;
+    private $postesRepository;
+    private $profilsDevRepository;
+
+    public function __construct(
+        FavorisRepository $favorisRepository,
+        PostesRepository $postesRepository,
+        ProfilsDevRepository $profilsDevRepository
+    ) {
+        $this->favorisRepository = $favorisRepository;
+        $this->postesRepository = $postesRepository;
+        $this->profilsDevRepository = $profilsDevRepository;
+    }
+
     #[Route('/', name: 'app_landing')]
     public function index(): Response
     {
@@ -57,7 +74,6 @@ class LandingController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-              
                 $profilsDev->setUser($user);
                 $entityManager->persist($profilsDev);
                 $entityManager->flush();
@@ -74,8 +90,24 @@ class LandingController extends AbstractController
 
         $profilsDev = $user->getProfilsDev();
 
+        // Récupérer les favoris de type poste
+        $favoris = $this->favorisRepository->findBy([
+            'userId' => $user->getId(),
+            'type' => 'poste'
+        ]);
+        
+        // Récupérer les IDs des postes favoris
+        $postesIds = array_map(fn($favori) => $favori->getCibleId(), $favoris);
+        
+        // Récupérer les postes correspondants
+        $postes = [];
+        if (!empty($postesIds)) {
+            $postes = $this->postesRepository->findBy(['id' => $postesIds]);
+        }
         return $this->render('profil/profil.html.twig', [
             'profile' => $profilsDev,
+            'postes' => $postes,
+            'favoris' => $favoris,
         ]);
     }
 
@@ -98,7 +130,6 @@ class LandingController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-              
                 $profilsCompany->setUser($user);
                 $entityManager->persist($profilsCompany);
                 $entityManager->flush();
@@ -116,7 +147,7 @@ class LandingController extends AbstractController
 
         return $this->render('company/show.html.twig', [
             'profils_company' => $profilsCompany,
-            'developpeurs' => $profilsDevRepository->findAll(),
+            'developpeurs' => $this->profilsDevRepository->findAll(),
         ]);
     }
 
@@ -156,8 +187,20 @@ class LandingController extends AbstractController
     }
 
     #[Route('/dev', name: 'target_path')]
-    public function homeLogin(): Response
+    public function homeLogin(FavorisRepository $favorisRepository): Response
     {
-        return $this->render('landing/presentation.html.twig');
+        $user = $this->getUser();
+        $favoris = [];
+        // Récupérer tous les favoris des développeurs
+
+        if ($user) {
+            $favoris = $this->favorisRepository->findBy([
+                'userId' => $user->getId(),
+                'type' => 'profil'
+            ]);
+        }
+        return $this->render('landing/presentation.html.twig',[
+            'favoris' => $favoris,
+        ]);
     }
 }

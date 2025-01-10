@@ -438,10 +438,57 @@
 													</div>
 												</div>
 											</div>
+											<div class="d-flex align-items-center mb-4">
+												<div class="flex-grow-1">
+													<h5 class="card-title mb-0">Quelques postes pour vous</h5>
+												</div>
+												<div class="flex-shrink-0">
+													<div class="dropdown">
+														<a href="#" role="button" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">
+															<i class="ri-more-2-fill fs-14"></i>
+														</a>
+
+														<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
+															<li>
+																<a class="dropdown-item" href="#">Afficher tout</a>
+															</li>
+
+														</ul>
+													</div>
+												</div>
+											</div>
 											<div class="swiper-wrapper">
 												<div class="swiper-slide">
 													<div class="card profile-project-card shadow-none profile-project-success mb-0 material-shadow">
-														<div class="card-body p-4">
+														<div class="card-body p-4">	
+															<div class="d-flex">
+																{%for poste in postes %}
+																<div class="d-flex align-items-center py-3">
+																	<div class="avatar-xs flex-shrink-0 me-3">
+																		<img src="assets/images/users/avatar-3.jpg" alt="" class="img-fluid rounded-circle material-shadow"/>
+																	</div>
+																	<div class="flex-grow-1">
+																		<div>
+																			<h5 class="fs-14 mb-1"> {{ poste.titre}} </h5>
+																			<p class="fs-13 text-muted mb-0">{{ poste.description}} </p>
+																		</div>
+																	</div>
+																	<div class="flex-shrink-0 ms-2">
+																		<button type="button" class="btn btn-sm btn-outline-success material-shadow-none btn-favorite" data-poste-id="{{ poste.id }}" title="Ajouter aux favoris">
+																			<i class="ri-user-add-line align-middle favorite-icon"></i>
+																		</button>
+																	</div>
+																</div>
+																{% endfor %}
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<div class="card profile-project-card shadow-none profile-project-success mb-0 material-shadow">
+														<div class="card-body p-4">	
 															<div class="d-flex">
 																<div class="flex-grow-1 text-muted overflow-hidden">
 																	<h5 class="fs-14 text-truncate mb-1">
