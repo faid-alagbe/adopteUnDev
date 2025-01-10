@@ -73,8 +73,21 @@ final class PostesController extends AbstractController{
     #[Route('/{id}', name: 'app_postes_show', methods: ['GET'])]
     public function show(Postes $poste): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        if (!$user instanceof User) {
+            throw new \LogicException('L\'utilisateur connecté n\'est pas valide.');
+        }
+        $profilsCompany = $user->getCompany();
+
         return $this->render('postes/show.html.twig', [
-            'poste' => $poste,
+            'profils_company' => $profilsCompany,
+            'postes' => $poste,
+            'user' => $user,
         ]);
     }
 

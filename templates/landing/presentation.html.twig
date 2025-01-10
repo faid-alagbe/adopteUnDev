@@ -42,98 +42,59 @@
 						</button>
 
 						<!-- App Search-->
-						<form class="app-search d-none d-md-block">
-							<div class="position-relative">
-								<input type="text" class="form-control" placeholder="Search..." autocomplete="off" id="search-options" value="">
-								<span class="mdi mdi-magnify search-widget-icon"></span>
-								<span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
+						<form method="get" action="{{ path('search_posts') }}" class="row g-3 m-2">
+							<div class="col-md-2">
+								<select name="technologies" id="technologies" placeholder="Technologie" class="form-select">
+									<option value="0">Langages/Technologies</option>
+									{% for langage in langages %}
+										<option value="{{ langage }}">{{langage.nom}}</option>
+									{% endfor %}
+									
+								</select>
 							</div>
-							<div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
-								<div
-									data-simplebar style="max-height: 320px;">
-									<!-- item-->
-									<div class="dropdown-header">
-										<h6 class="text-overflow text-muted mb-0 text-uppercase">Recent Searches</h6>
-									</div>
 
-									<div class="dropdown-item bg-transparent text-wrap">
-										<a href="index.html" class="btn btn-soft-secondary btn-sm rounded-pill">how to setup
-											<i class="mdi mdi-magnify ms-1"></i>
-										</a>
-										<a href="index.html" class="btn btn-soft-secondary btn-sm rounded-pill">buttons
-											<i class="mdi mdi-magnify ms-1"></i>
-										</a>
-									</div>
-									<!-- item-->
-									<div class="dropdown-header mt-2">
-										<h6 class="text-overflow text-muted mb-1 text-uppercase">Pages</h6>
-									</div>
+							<div class="col-md-2">
+								<input type="text" name="localisation" id="localisation" placeholder="Localisation" class="form-control" placeholder="Ex : Paris">
+							</div>
 
-									<!-- item-->
-									<a href="javascript:void(0);" class="dropdown-item notify-item">
-										<i class="ri-bubble-chart-line align-middle fs-18 text-muted me-2"></i>
-										<span>Analytics Dashboard</span>
-									</a>
+							<div class="col-md-2">
+								<input type="number" name="salaireMin" placeholder="Salaire maximum" id="salaireMin" class="form-control">
+							</div>
 
-									<!-- item-->
-									<a href="javascript:void(0);" class="dropdown-item notify-item">
-										<i class="ri-lifebuoy-line align-middle fs-18 text-muted me-2"></i>
-										<span>Help Center</span>
-									</a>
+							<div class="col-md-2">
+								<input type="number" name="experienceMin" id="experienceMin" placeholder="Expérience minimale (années)" class="form-control">
+							</div>
 
-									<!-- item-->
-									<a href="javascript:void(0);" class="dropdown-item notify-item">
-										<i class="ri-user-settings-line align-middle fs-18 text-muted me-2"></i>
-										<span>My account settings</span>
-									</a>
-
-									<!-- item-->
-									<div class="dropdown-header mt-2">
-										<h6 class="text-overflow text-muted mb-2 text-uppercase">Members</h6>
-									</div>
-
-									<div
-										class="notification-list">
-										<!-- item -->
-										<a href="javascript:void(0);" class="dropdown-item notify-item py-2">
-											<div class="d-flex">
-												<img src="assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-												<div class="flex-grow-1">
-													<h6 class="m-0">Angela Bernier</h6>
-													<span class="fs-11 mb-0 text-muted">Manager</span>
-												</div>
-											</div>
-										</a>
-										<!-- item -->
-										<a href="javascript:void(0);" class="dropdown-item notify-item py-2">
-											<div class="d-flex">
-												<img src="assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-												<div class="flex-grow-1">
-													<h6 class="m-0">David Grasso</h6>
-													<span class="fs-11 mb-0 text-muted">Web Designer</span>
-												</div>
-											</div>
-										</a>
-										<!-- item -->
-										<a href="javascript:void(0);" class="dropdown-item notify-item py-2">
-											<div class="d-flex">
-												<img src="assets/images/users/avatar-5.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-												<div class="flex-grow-1">
-													<h6 class="m-0">Mike Bunch</h6>
-													<span class="fs-11 mb-0 text-muted">React Developer</span>
-												</div>
-											</div>
-										</a>
-									</div>
-								</div>
-
-								<div class="text-center pt-3 pb-1">
-									<a href="pages-search-results.html" class="btn btn-primary btn-sm">View All Results
-										<i class="ri-arrow-right-line ms-1"></i>
-									</a>
-								</div>
+							<div class="col-2">
+								<button type="submit" class="btn btn-primary">Rechercher</button>
 							</div>
 						</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					</div>
 
 					<div class="d-flex align-items-center">
@@ -304,422 +265,13 @@
 							</div>
 						</div>
 					</div>
+					
+
+
+						
 					<!-- end page title -->
-
-
 					<div class="row">
-						<div class="col-xl-3 col-md-6">
-							<div class="card card-animate">
-								<div class="card-body">
-									<div class="d-flex justify-content-between">
-										<div>
-											<p class="fw-medium text-muted mb-0">Users</p>
-											<h2 class="mt-4 ff-secondary fw-semibold">
-												<span class="counter-value" data-target="28.05">0</span>k</h2>
-											<p class="mb-0 text-muted">
-												<span class="badge bg-light text-success mb-0">
-													<i class="ri-arrow-up-line align-middle"></i>
-													16.24 %
-												</span>
-												vs. previous month</p>
-										</div>
-										<div>
-											<div class="avatar-sm flex-shrink-0">
-												<span class="avatar-title bg-info-subtle rounded-circle fs-2">
-													<i data-feather="users" class="text-info material-shadow"></i>
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end card body -->
-							</div>
-							<!-- end card-->
-						</div>
-						<!-- end col-->
-
-						<div class="col-xl-3 col-md-6">
-							<div class="card card-animate">
-								<div class="card-body">
-									<div class="d-flex justify-content-between">
-										<div>
-											<p class="fw-medium text-muted mb-0">Sessions</p>
-											<h2 class="mt-4 ff-secondary fw-semibold">
-												<span class="counter-value" data-target="97.66">0</span>k</h2>
-											<p class="mb-0 text-muted">
-												<span class="badge bg-light text-danger mb-0">
-													<i class="ri-arrow-down-line align-middle"></i>
-													3.96 %
-												</span>
-												vs. previous month</p>
-										</div>
-										<div>
-											<div class="avatar-sm flex-shrink-0">
-												<span class="avatar-title bg-info-subtle rounded-circle fs-2 material-shadow">
-													<i data-feather="activity" class="text-info"></i>
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end card body -->
-							</div>
-							<!-- end card-->
-						</div>
-						<!-- end col-->
-
-						<div class="col-xl-3 col-md-6">
-							<div class="card card-animate bg-primary">
-								<div class="card-body">
-									<div class="d-flex justify-content-between">
-										<div>
-											<p class="fw-medium text-white-50 mb-0">Avg. Visit Duration</p>
-											<h2 class="mt-4 ff-secondary fw-semibold text-white">
-												<span class="counter-value" data-target="3">0</span>m
-												<span class="counter-value" data-target="40">0</span>sec</h2>
-											<p class="mb-0 text-white-50">
-												<span class="badge bg-white bg-opacity-25 text-white mb-0">
-													<i class="ri-arrow-down-line align-middle"></i>
-													0.24 %
-												</span>
-												vs. previous month</p>
-										</div>
-										<div>
-											<div class="avatar-sm flex-shrink-0">
-												<span class="avatar-title bg-white bg-opacity-25 rounded-circle fs-2 material-shadow">
-													<i data-feather="clock" class="text-white"></i>
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end card body -->
-							</div>
-							<!-- end card-->
-						</div>
-						<!-- end col-->
-
-						<div class="col-xl-3 col-md-6">
-							<div class="card card-animate">
-								<div class="card-body">
-									<div class="d-flex justify-content-between">
-										<div>
-											<p class="fw-medium text-muted mb-0">Bounce Rate</p>
-											<h2 class="mt-4 ff-secondary fw-semibold">
-												<span class="counter-value" data-target="33.48">0</span>%</h2>
-											<p class="mb-0 text-muted">
-												<span class="badge bg-light text-success mb-0">
-													<i class="ri-arrow-up-line align-middle"></i>
-													7.05 %
-												</span>
-												vs. previous month</p>
-										</div>
-										<div>
-											<div class="avatar-sm flex-shrink-0">
-												<span class="avatar-title bg-info-subtle rounded-circle fs-2 material-shadow">
-													<i data-feather="external-link" class="text-info"></i>
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end card body -->
-							</div>
-							<!-- end card-->
-						</div>
-						<!-- end col-->
-					</div>
-					<!-- end row-->
-
-					<div class="row pt-3">
-						<div class="col-12">
-							<div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-								<h4 class="mb-sm-0">Entreprise</h4>
-							</div>
-						</div>
-					</div>
-					<!-- end row-->
-
-					<div class="row">
-						<div class="col-xl-3 col-md-6">
-							<div class="card card-height-100">
-								<div class="card-body">
-									<div class="dropdown float-end">
-										<a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<span class="text-muted fs-18">
-												<i class="mdi mdi-dots-vertical"></i>
-											</span>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="#!">Favorite</a>
-											<a class="dropdown-item" href="#!">Apply Now</a>
-										</div>
-									</div>
-									<div class="mb-4 pb-2">
-										<img src="assets/images/companies/img-3.png" alt="" class="avatar-sm">
-									</div>
-									<a href="#!">
-										<h6 class="fs-15 fw-semibold">Marketing Director
-											<span class="text-muted fs-13">(2-4 Yrs Exp.)</span>
-										</h6>
-									</a>
-									<p class="text-muted mb-0">
-										<i class="ri-building-line align-bottom"></i>
-										Themesbrand
-										<span class="ms-2">
-											<i class="ri-map-pin-2-line align-bottom"></i>
-											California</span>
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6">
-							<div class="card card-height-100">
-								<div class="card-body">
-									<div class="dropdown float-end">
-										<a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<span class="text-muted fs-18">
-												<i class="mdi mdi-dots-vertical"></i>
-											</span>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="#!">Favorite</a>
-											<a class="dropdown-item" href="#!">Apply Now</a>
-										</div>
-									</div>
-									<div class="mb-4 pb-2">
-										<img src="assets/images/companies/img-4.png" alt="" class="avatar-sm">
-									</div>
-									<a href="#!">
-										<h6 class="fs-15 fw-semibold">Sr. Web Designer
-											<span class="text-muted fs-13">(2+ Yrs Exp.)</span>
-										</h6>
-									</a>
-									<p class="text-muted mb-0">
-										<i class="ri-building-line align-bottom"></i>
-										Themesbrand
-										<span class="ms-2">
-											<i class="ri-map-pin-2-line align-bottom"></i>
-											California</span>
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6">
-							<div class="card card-height-100 bg-primary-subtle shadow-none bg-opacity-10">
-								<div class="card-body">
-									<div class="dropdown float-end">
-										<a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<span class="text-muted fs-18">
-												<i class="mdi mdi-dots-vertical"></i>
-											</span>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="#!">Favorite</a>
-											<a class="dropdown-item" href="#!">Apply Now</a>
-										</div>
-									</div>
-									<div class="mb-4 pb-2">
-										<img src="assets/images/companies/img-6.png" alt="" class="avatar-sm">
-									</div>
-									<a href="#!">
-										<h6 class="fs-15 fw-semibold">Sr. Web Designer
-											<span class="text-muted fs-13">(2+ Yrs Exp.)</span>
-										</h6>
-									</a>
-									<p class="text-muted mb-0">
-										<i class="ri-building-line align-bottom"></i>
-										Themesbrand
-										<span class="ms-2">
-											<i class="ri-map-pin-2-line align-bottom"></i>
-											California</span>
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6">
-							<div class="card card-height-100 bg-info-subtle shadow-none bg-opacity-10">
-								<div class="card-body">
-									<div class="dropdown float-end">
-										<a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<span class="text-muted fs-18">
-												<i class="mdi mdi-dots-vertical"></i>
-											</span>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="#!">Favorite</a>
-											<a class="dropdown-item" href="#!">Apply Now</a>
-										</div>
-									</div>
-									<div class="mb-4 pb-2">
-										<img src="assets/images/companies/img-8.png" alt="" class="avatar-sm">
-									</div>
-									<a href="#!">
-										<h6 class="fs-15 fw-semibold">Sr. Web Designer
-											<span class="text-muted fs-13">(2+ Yrs Exp.)</span>
-										</h6>
-									</a>
-									<p class="text-muted mb-0">
-										<i class="ri-building-line align-bottom"></i>
-										Themesbrand
-										<span class="ms-2">
-											<i class="ri-map-pin-2-line align-bottom"></i>
-											California</span>
-									</p>
-								</div>
-							</div>
-						</div>
-						<!-- end col-->
-					</div>
-					<!-- end row-->
-					<div class="row pt-3">
-						<div class="col-12">
-							<div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-								<h4 class="mb-sm-0">Offres</h4>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="card shadow-lg">
-								<div class="card-body">
-									<div class="d-flex">
-										<div class="avatar-sm">
-											<div class="avatar-title bg-warning-subtle rounded">
-												<img src="assets/images/companies/img-3.png" alt="" class="avatar-xxs">
-											</div>
-										</div>
-										<div class="ms-3 flex-grow-1">
-											<a href="#!">
-												<h5>UI/UX designer</h5>
-											</a>
-											<ul class="list-inline text-muted mb-3">
-												<li class="list-inline-item">
-													<i class="ri-building-line align-bottom me-1"></i>
-													Nesta Technologies
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-map-pin-2-line align-bottom me-1"></i>
-													USA
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-money-dollar-circle-line align-bottom me-1"></i>
-													$23k - 35k
-												</li>
-											</ul>
-											<div class="hstack gap-2">
-												<span class="badge bg-success-subtle text-success">Design</span>
-												<span class="badge bg-danger-subtle text-danger">UI/UX</span>
-												<span class="badge bg-primary-subtle text-primary">Adobe XD</span>
-											</div>
-										</div>
-										<div>
-											<button type="button" class="btn btn-ghost-primary btn-icon custom-toggle" data-bs-toggle="button">
-												<span class="icon-on">
-													<i class="ri-bookmark-line"></i>
-												</span>
-												<span class="icon-off">
-													<i class="ri-bookmark-fill"></i>
-												</span>
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="card shadow-lg">
-								<div class="card-body">
-									<div class="d-flex">
-										<div class="avatar-sm">
-											<div class="avatar-title bg-primary-subtle rounded">
-												<img src="assets/images/companies/img-2.png" alt="" class="avatar-xxs">
-											</div>
-										</div>
-										<div class="ms-3 flex-grow-1">
-											<a href="#!">
-												<h5>Product Sales Specialist</h5>
-											</a>
-											<ul class="list-inline text-muted mb-3">
-												<li class="list-inline-item">
-													<i class="ri-building-line align-bottom me-1"></i>
-													Digitech Galaxy
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-map-pin-2-line align-bottom me-1"></i>
-													Spain
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-money-dollar-circle-line align-bottom me-1"></i>
-													$10k - 15k
-												</li>
-											</ul>
-											<div class="hstack gap-2">
-												<span class="badge bg-primary-subtle text-primary">Sales</span>
-												<span class="badge bg-secondary-subtle text-secondary">Product</span>
-												<span class="badge bg-info-subtle text-info">Business</span>
-											</div>
-										</div>
-										<div>
-											<button type="button" class="btn btn-ghost-primary btn-icon custom-toggle active" data-bs-toggle="button">
-												<span class="icon-on">
-													<i class="ri-bookmark-line"></i>
-												</span>
-												<span class="icon-off">
-													<i class="ri-bookmark-fill"></i>
-												</span>
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="card shadow-lg">
-								<div class="card-body">
-									<div class="d-flex">
-										<div class="avatar-sm">
-											<div class="avatar-title bg-danger-subtle rounded">
-												<img src="assets/images/companies/img-4.png" alt="" class="avatar-xxs">
-											</div>
-										</div>
-										<div class="ms-3 flex-grow-1">
-											<a href="#!">
-												<h5>Marketing Director</h5>
-											</a>
-											<ul class="list-inline text-muted mb-3">
-												<li class="list-inline-item">
-													<i class="ri-building-line align-bottom me-1"></i>
-													Meta4Systems
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-map-pin-2-line align-bottom me-1"></i>
-													Sweden
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-money-dollar-circle-line align-bottom me-1"></i>
-													$20k - 25k
-												</li>
-											</ul>
-											<div class="hstack gap-2">
-												<span class="badge bg-warning-subtle text-warning">Marketing</span>
-												<span class="badge bg-info-subtle text-info">Bussiness</span>
-											</div>
-										</div>
-										<div>
-											<button type="button" class="btn btn-ghost-primary btn-icon custom-toggle active" data-bs-toggle="button">
-												<span class="icon-on">
-													<i class="ri-bookmark-line"></i>
-												</span>
-												<span class="icon-off">
-													<i class="ri-bookmark-fill"></i>
-												</span>
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					{% for poste in postes %}
 						<div class="col-lg-6">
 							<div class="card shadow-lg">
 								<div class="card-body">
@@ -731,236 +283,134 @@
 										</div>
 										<div class="ms-3 flex-grow-1">
 											<a href="#!">
-												<h5>Product Designer</h5>
+												<h5>{{ poste.titre }}</h5>
 											</a>
 											<ul class="list-inline text-muted mb-3">
 												<li class="list-inline-item">
 													<i class="ri-building-line align-bottom me-1"></i>
-													Themesbrand
+													{{ poste.showCompany.nom }}
 												</li>
 												<li class="list-inline-item">
 													<i class="ri-map-pin-2-line align-bottom me-1"></i>
-													USA
+													{{ poste.localisation }}
 												</li>
 												<li class="list-inline-item">
 													<i class="ri-money-dollar-circle-line align-bottom me-1"></i>
-													$40k+
+													{{ poste.salaire }}
 												</li>
 											</ul>
 											<div class="hstack gap-2">
-												<span class="badge bg-success-subtle text-success">Design</span>
-												<span class="badge bg-danger-subtle text-danger">UI/UX</span>
-												<span class="badge bg-primary-subtle text-primary">Adobe XD</span>
+												{% for langage in poste.langages %}
+												<span class="badge bg-success-subtle text-success">{{ langage }}</span>
+												{% endfor %}
+												
 											</div>
 										</div>
 										<div>
-											<button type="button" class="btn btn-ghost-primary btn-icon custom-toggle" data-bs-toggle="button">
-												<span class="icon-on">
-													<i class="ri-bookmark-line"></i>
-												</span>
-												<span class="icon-off">
-													<i class="ri-bookmark-fill"></i>
-												</span>
-											</button>
+                                            <a href="{{ path('app_postes_show', {'id': poste.id}) }}" >
+                                                <button class='btn btn-outline-primary'>
+                                                    <span class="icon">
+                                                        <i class="ri-eye-line"></i>
+                                                    </span>
+                                                </button>
+                                            </a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-6">
-							<div class="card shadow-lg">
-								<div class="card-body">
-									<div class="d-flex">
-										<div class="avatar-sm">
-											<div class="avatar-title bg-info-subtle rounded">
-												<img src="assets/images/companies/img-1.png" alt="" class="avatar-xxs">
-											</div>
-										</div>
-										<div class="ms-3 flex-grow-1">
-											<a href="#!">
-												<h5>Project Manager</h5>
+                    {% else %}
+                        <div class='text-center'>
+							Pas de postes de votre part
+                        </div>
+                    {% endfor %}
+						
+					</div>
+
+					
+
+					<div class="row pt-3">
+						<div class="col-12">
+							<div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+								<h4 class="mb-sm-0">Quelques Entreprises</h4>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+					<!-- end row-->
+						{% for entreprise in entreprises %}
+							<div class="col-xl-3 col-md-6">
+								<div class="card card-height-100">
+									<div class="card-body">
+										<div class="dropdown float-end">
+											<a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												<span class="text-muted fs-18">
+													<i class="mdi mdi-dots-vertical"></i>
+												</span>
 											</a>
-											<ul class="list-inline text-muted mb-3">
-												<li class="list-inline-item">
-													<i class="ri-building-line align-bottom me-1"></i>
-													Syntyce Solutions
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-map-pin-2-line align-bottom me-1"></i>
-													Germany
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-money-dollar-circle-line align-bottom me-1"></i>
-													$18k - 26k
-												</li>
-											</ul>
-											<div class="hstack gap-2">
-												<span class="badge bg-danger-subtle text-danger">HR</span>
-												<span class="badge bg-success-subtle text-success">Manager</span>
+											<div class="dropdown-menu dropdown-menu-end">
+												<a class="dropdown-item" href="#!">Favorite</a>
 											</div>
 										</div>
-										<div>
-											<button type="button" class="btn btn-ghost-primary btn-icon custom-toggle" data-bs-toggle="button">
-												<span class="icon-on">
-													<i class="ri-bookmark-line"></i>
-												</span>
-												<span class="icon-off">
-													<i class="ri-bookmark-fill"></i>
-												</span>
-											</button>
+										<div class="mb-4 pb-2">
+											<img src="assets/images/companies/img-4.png" alt="" class="avatar-sm">
 										</div>
+										<a href="#!">
+											<h6 class="fs-15 fw-semibold">{{ entreprise.nom }}
+											</h6>
+										</a>
+										<p class="text-muted mb-0">
+											<i class="ri-building-line align-bottom"></i>
+											{{ entreprise.nom }}
+											<span class="ms-2">
+												<i class="ri-map-pin-2-line align-bottom"></i>
+												{{ entreprise.location }}</span>
+										</p>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="card shadow-lg">
-								<div class="card-body">
-									<div class="d-flex">
-										<div class="avatar-sm">
-											<div class="avatar-title bg-success-subtle rounded">
-												<img src="assets/images/companies/img-7.png" alt="" class="avatar-xxs">
-											</div>
-										</div>
-										<div class="ms-3 flex-grow-1">
-											<a href="#!">
-												<h5>Business Associate</h5>
-											</a>
-											<ul class="list-inline text-muted mb-3">
-												<li class="list-inline-item">
-													<i class="ri-building-line align-bottom me-1"></i>
-													Nesta Technologies
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-map-pin-2-line align-bottom me-1"></i>
-													USA
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-money-dollar-circle-line align-bottom me-1"></i>
-													$23k - 35k
-												</li>
-											</ul>
-											<div class="hstack gap-2">
-												<span class="badge bg-success-subtle text-success">Design</span>
-												<span class="badge bg-danger-subtle text-danger">UI/UX</span>
-												<span class="badge bg-primary-subtle text-primary">Adobe XD</span>
-											</div>
-										</div>
-										<div>
-											<button type="button" class="btn btn-ghost-primary btn-icon custom-toggle active" data-bs-toggle="button">
-												<span class="icon-on">
-													<i class="ri-bookmark-line"></i>
-												</span>
-												<span class="icon-off">
-													<i class="ri-bookmark-fill"></i>
-												</span>
-											</button>
-										</div>
-									</div>
-								</div>
+						{% else %}
+							<div class='text-center'>
+								Aucune Entreprise
+							</div>
+						{% endfor %}
+						
+					</div>
+					<!-- end row-->
+					<div class="row pt-3">
+						<div class="col-12">
+							<div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+								<h4 class="mb-sm-0">Offres</h4>
 							</div>
 						</div>
-						<div class="col-lg-6">
-							<div class="card shadow-lg">
-								<div class="card-body">
-									<div class="d-flex">
-										<div class="avatar-sm">
-											<div class="avatar-title bg-info-subtle rounded">
-												<img src="assets/images/companies/img-8.png" alt="" class="avatar-xxs">
-											</div>
-										</div>
-										<div class="ms-3 flex-grow-1">
-											<a href="#!">
-												<h5>Recruiting Coordinator</h5>
-											</a>
-											<ul class="list-inline text-muted mb-3">
-												<li class="list-inline-item">
-													<i class="ri-building-line align-bottom me-1"></i>
-													Zoetic Fashion
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-map-pin-2-line align-bottom me-1"></i>
-													Namibia
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-money-dollar-circle-line align-bottom me-1"></i>
-													$12k - 15k
-												</li>
-											</ul>
-											<div class="hstack gap-2">
-												<span class="badge bg-success-subtle text-success">Full Time</span>
-												<span class="badge bg-info-subtle text-info">Remote</span>
-												<span class="badge bg-primary-subtle text-primary">Fashion</span>
-											</div>
-										</div>
-										<div>
-											<button type="button" class="btn btn-ghost-primary btn-icon custom-toggle active" data-bs-toggle="button">
-												<span class="icon-on">
-													<i class="ri-bookmark-line"></i>
-												</span>
-												<span class="icon-off">
-													<i class="ri-bookmark-fill"></i>
-												</span>
-											</button>
-										</div>
+					</div>
+					<div class="row">
+					{% for offre in offres %}
+
+					<div class="col-lg-3 col-md-6">
+						<div class="card shadow-none text-center py-3">
+							<div class="card-body py-4">
+								<div class="avatar-sm position-relative mb-4 mx-auto">
+									<div class="job-icon-effect"></div>
+									<div class="avatar-title bg-transparent text-success rounded-circle">
+										<i class="ri-pencil-ruler-2-line fs-1"></i>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="card shadow-lg">
-								<div class="card-body">
-									<div class="d-flex">
-										<div class="avatar-sm">
-											<div class="avatar-title bg-warning-subtle rounded">
-												<img src="assets/images/companies/img-5.png" alt="" class="avatar-xxs">
-											</div>
-										</div>
-										<div class="ms-3 flex-grow-1">
-											<a href="#!">
-												<h5>Customs officer</h5>
-											</a>
-											<ul class="list-inline text-muted mb-3">
-												<li class="list-inline-item">
-													<i class="ri-building-line align-bottom me-1"></i>
-													Nesta Technologies
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-map-pin-2-line align-bottom me-1"></i>
-													USA
-												</li>
-												<li class="list-inline-item">
-													<i class="ri-money-dollar-circle-line align-bottom me-1"></i>
-													$41k - 45k
-												</li>
-											</ul>
-											<div class="hstack gap-2">
-												<span class="badge bg-success-subtle text-success">Design</span>
-												<span class="badge bg-danger-subtle text-danger">UI/UX</span>
-												<span class="badge bg-primary-subtle text-primary">Adobe XD</span>
-											</div>
-										</div>
-										<div>
-											<button type="button" class="btn btn-ghost-primary btn-icon custom-toggle" data-bs-toggle="button">
-												<span class="icon-on">
-													<i class="ri-bookmark-line"></i>
-												</span>
-												<span class="icon-off">
-													<i class="ri-bookmark-fill"></i>
-												</span>
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-12">
-							<div class="text-center mt-4">
-								<a href="#!" class="btn btn-ghost-primary">View More Jobs
-									<i class="ri-arrow-right-line align-bottom"></i>
+								<a href="#!" class="stretched-link">
+									<h5 class="fs-17 pt-1">{{ offre.titre }}</h5>
 								</a>
+								<p class="mb-0 text-muted">{{ offre.count }} Jobs</p>
 							</div>
 						</div>
+					</div>
+
+					{% else %}
+						<div class='text-center'>
+							Aucune Offre disponible
+						</div>
+					{% endfor %}
+						
+						
 					</div>
 
 				</div>

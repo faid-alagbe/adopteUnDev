@@ -36,7 +36,7 @@ final class CompanyController extends AbstractController{
         }
 
         return $this->render('landing/presentationCompany.html.twig', [
-            'postes' => $postesRepository->findLastFour(),
+            'postes' => $postesRepository->findLastThree(),
             'profils_company' => $company,
         ]);
     }
