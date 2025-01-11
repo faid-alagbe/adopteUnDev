@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\ProfilsDev;
 use App\Form\ProfilsDevType;
 use App\Repository\ProfilsDevRepository;
+use App\Repository\PostesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\User;
 
 #[Route('/profils/dev')]
 final class ProfilsDevController extends AbstractController
@@ -42,7 +44,7 @@ final class ProfilsDevController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_profils_dev_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'app_profils_dev_show', methods: ['GET'])]
     public function show(ProfilsDev $profilsDev): Response
     {
         return $this->render('profils_dev/show.html.twig', [
@@ -50,7 +52,7 @@ final class ProfilsDevController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_profils_dev_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_profils_dev_delete', methods: ['POST'])]
     public function delete(Request $request, ProfilsDev $profilsDev, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $profilsDev->getId(), $request->getPayload()->getString('_token'))) {
@@ -59,5 +61,38 @@ final class ProfilsDevController extends AbstractController
         }
 
         return $this->redirectToRoute('app_profils_dev_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/getPostes', name: 'app_poste_critere', methods: ['GET'])]
+    public function searchPostes(PostesRepository $postesRepository): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        if (!$user instanceof User) {
+            throw new \LogicException('L\'utilisateur connecté n\'est pas valide.');
+        }
+
+        $developper = $user->getProfilsDev();
+
+        if (!$developper) {
+            throw $this->createNotFoundException('Les critères de l\'entreprise n\'ont pas été définis.');
+        }
+
+        $postes = $postesRepository->searchPostes(
+
+            $developper->getSalaireMin() !== null ? $developper->getSalaireMin() - 100 : null,
+            $developper->getSalaireMin() !== null ? $developper->getSalaireMin() + 100 : null,
+            $developper->getLocalisation(),
+            $developper->getLangages(),
+            $developper->getExperience()
+        );
+
+        return $this->render('matching/poste_suggestion.html.twig', [
+            'postes' => $postes,
+        ]);
     }
 }

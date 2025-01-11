@@ -30,10 +30,17 @@ class Langages
     #[ORM\ManyToMany(targetEntity: ProfilsDev::class, mappedBy: 'langages')]
     private Collection $profilsDevs;
 
+    /**
+     * @var Collection<int, CompanyCrters>
+     */
+    #[ORM\ManyToMany(targetEntity: CompanyCrters::class, mappedBy: 'technologies')]
+    private Collection $companyCrters;
+
     public function __construct()
     {
         $this->postes = new ArrayCollection();
         $this->profilsDevs = new ArrayCollection();
+        $this->companyCrters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,5 +113,32 @@ class Langages
     public function __toString(): string
     {
         return $this->nom; // Remplacez "nom" par la propriété pertinente de l'entité Langages
+    }
+
+    /**
+     * @return Collection<int, CompanyCrters>
+     */
+    public function getCompanyCrters(): Collection
+    {
+        return $this->companyCrters;
+    }
+
+    public function addCompanyCrter(CompanyCrters $companyCrter): static
+    {
+        if (!$this->companyCrters->contains($companyCrter)) {
+            $this->companyCrters->add($companyCrter);
+            $companyCrter->addTechnology($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyCrter(CompanyCrters $companyCrter): static
+    {
+        if ($this->companyCrters->removeElement($companyCrter)) {
+            $companyCrter->removeTechnology($this);
+        }
+
+        return $this;
     }
 }

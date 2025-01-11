@@ -14,9 +14,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\CompanyCrters;
+
 
 #[Route('/company')]
-final class CompanyController extends AbstractController{
+final class CompanyController extends AbstractController
+{
     #[Route(name: 'target_pathComapany', methods: ['GET'])]
     public function index(PostesRepository $postesRepository, FavorisRepository $favorisRepository): Response
     {
@@ -67,6 +70,8 @@ final class CompanyController extends AbstractController{
 
             return $this->redirectToRoute('app_company_index', [], Response::HTTP_SEE_OTHER);
         }
+
+
 
         return $this->render('company/new.html.twig', [
             'company' => $company,

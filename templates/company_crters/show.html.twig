@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CompanyCrters{% endblock %}
+
+{% block body %}
+    <h1>CompanyCrters</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ company_crter.id }}</td>
+            </tr>
+            <tr>
+                <th>Langages</th>
+                <td>{{ company_crter.langages }}</td>
+            </tr>
+            <tr>
+                <th>Salaire</th>
+                <td>{{ company_crter.salaire }}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{ company_crter.location }}</td>
+            </tr>
+            <tr>
+                <th>ExperienceYear</th>
+                <td>{{ company_crter.experienceYear }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_company_crters_index') }}">back to list</a>
+
+    <a href="{{ path('app_company_crters_edit', {'id': company_crter.id}) }}">edit</a>
+
+    {{ include('company_crters/_delete_form.html.twig') }}
+{% endblock %}
