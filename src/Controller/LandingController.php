@@ -15,7 +15,6 @@ use App\Repository\CompanyRepository;
 use App\Repository\LangagesRepository;
 use App\Repository\PostesRepository;
 use App\Repository\ProfilsDevRepository;
-use App\Repository\PostesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
