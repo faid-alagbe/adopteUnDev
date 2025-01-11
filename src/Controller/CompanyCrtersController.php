@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\User;
+use App\Repository\ProfilsDevRepository;
 
 #[Route('/company/crters')]
 final class CompanyCrtersController extends AbstractController
@@ -60,7 +61,7 @@ final class CompanyCrtersController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_company_crters_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'app_company_crters_show', methods: ['GET'])]
     public function show(CompanyCrters $companyCrter): Response
     {
         return $this->render('company_crters/show.html.twig', [
@@ -86,7 +87,7 @@ final class CompanyCrtersController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_company_crters_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_company_crters_delete', methods: ['POST'])]
     public function delete(Request $request, CompanyCrters $companyCrter, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $companyCrter->getId(), $request->getPayload()->getString('_token'))) {
@@ -97,10 +98,11 @@ final class CompanyCrtersController extends AbstractController
         return $this->redirectToRoute('app_company_crters_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/getDevs/{id}', name: 'app_dev_critere', methods: ['POST'])]
-    public function searchDeveloper(CompanyCrtersRepository $companyCrtersRepository,)
+    #[Route('/getDevs', name: 'app_dev_critere', methods: ['GET'])]
+    public function searchDeveloper(ProfilsDevRepository $profilsDevRepository): Response
     {
         $user = $this->getUser();
+
         if (!$user) {
             throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
         }
@@ -108,11 +110,60 @@ final class CompanyCrtersController extends AbstractController
         if (!$user instanceof User) {
             throw new \LogicException('L\'utilisateur connecté n\'est pas valide.');
         }
+
         $companyCriteria = $user->getCompany()->getCompanyCrters();
-        $devs = $companyCrtersRepository->findByCriteria($companyCriteria->getTechnologies()->toArray(), $companyCriteria->getLocation(), $companyCriteria->getExperienceYear(), $companyCriteria->getSalaire());
+
+        if (!$companyCriteria) {
+            throw $this->createNotFoundException('Les critères de l\'entreprise n\'ont pas été définis.');
+        }
+
+        $devs = $profilsDevRepository->searchDevs(
+
+            $companyCriteria->getSalaire() !== null ? $companyCriteria->getSalaire() - 100 : null,
+            $companyCriteria->getSalaire() !== null ? $companyCriteria->getSalaire() + 100 : null,
+            $companyCriteria->getLocation(),
+            $companyCriteria->getTechnologies(),
+            $companyCriteria->getExperienceYear()
+        );
 
         return $this->render('matching/dev_suggestion.html.twig', [
             'company_crters' => $devs,
         ]);
     }
+
+
+
+    // #[Route('/index2',name: 'app_dev_critere', methods: ['GET'])]
+    // public function index2(CompanyCrtersRepository $companyCritereRepository, DevRepository $devRepository): Response
+    // {
+
+
+
+    //     $user = $this->getUser();
+
+    //     if (!$user instanceof User) {
+    //         throw new \LogicException('L\'utilisateur connecté n\'est pas de type User.');
+    //     }
+
+    //     $companyID = $user->getCompany();
+
+    //     $critere = $companyCritereRepository->findOneBy(['company'=> $companyID]);
+    //     if (!$critere instanceof CompanyCrters) {
+    //         throw new \LogicException('L\'utilisateur connecté n\'est pas de type User.');
+    //     }
+    //     $devs = $devRepository->searchDevs(
+    //         $critere->getSalaire(),
+    //         $critere->get,
+    //         $critere->getCity(),
+    //         $critere->getTechnos(),
+    //         $critere->getExperience()
+
+    //     );
+    //     //dd($critere);
+
+    //     //dd($devs);
+    //     return $this->render('dev/index2.html.twig', [
+    //         'devs' => $devs,
+    //     ]);
+    // }
 }
