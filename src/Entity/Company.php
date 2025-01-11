@@ -29,6 +29,9 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $presentation = null;
 
+    #[ORM\OneToOne(mappedBy: 'company', cascade: ['persist', 'remove'])]
+    private ?CompanyCrters $companyCrters = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,23 @@ class Company
     public function setPresentation(string $presentation): static
     {
         $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getCompanyCrters(): ?CompanyCrters
+    {
+        return $this->companyCrters;
+    }
+
+    public function setCompanyCrters(CompanyCrters $companyCrters): static
+    {
+        // set the owning side of the relation if necessary
+        if ($companyCrters->getCompany() !== $this) {
+            $companyCrters->setCompany($this);
+        }
+
+        $this->companyCrters = $companyCrters;
 
         return $this;
     }
