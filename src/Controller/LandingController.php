@@ -11,7 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\ProfilsDev;
 use App\Form\CompanyType;
 use App\Form\ProfilsDevType;
+use App\Repository\CompanyRepository;
+use App\Repository\LangagesRepository;
+use App\Repository\PostesRepository;
 use App\Repository\ProfilsDevRepository;
+use App\Repository\PostesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -78,8 +82,8 @@ class LandingController extends AbstractController
         ]);
     }
 
-    #[Route('/companyProfil', name: 'app_profil_company', methods: ['GET', 'POST'])]
-    public function profiCompagni(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/company/profil', name: 'app_profil_company', methods: ['GET', 'POST'])]
+    public function profiCompagni(Request $request, EntityManagerInterface $entityManager,ProfilsDevRepository $profilsDevRepository, PostesRepository $postesRepository): Response
     {
         $user = $this->getUser();
 
@@ -97,7 +101,7 @@ class LandingController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-              
+                
                 $profilsCompany->setUser($user);
                 $entityManager->persist($profilsCompany);
                 $entityManager->flush();
@@ -109,13 +113,13 @@ class LandingController extends AbstractController
                 'profils_company' => $profilsCompany,
                 'form' => $form,
             ]);
-            /* throw $this->createNotFoundException('Profil développeur introuvable pour cet utilisateur.'); */
         }
 
         $profilsCompany = $user->getCompany();
 
         return $this->render('company/show.html.twig', [
             'profils_company' => $profilsCompany,
+            'developpeurs' => $profilsDevRepository->findAll(),
         ]);
     }
 
@@ -147,6 +151,7 @@ class LandingController extends AbstractController
 
             return $this->redirectToRoute('app_profil_company', [], Response::HTTP_SEE_OTHER);
         }
+        
         return $this->render('company/edit.html.twig', [
             'company' => $profilsCompany,
             'form' => $form,
@@ -154,8 +159,97 @@ class LandingController extends AbstractController
     }
 
     #[Route('/dev', name: 'target_path')]
-    public function homeLogin(): Response
+    public function homeLogin(PostesRepository $postesRepository, CompanyRepository $company, LangagesRepository $langagesRepository): Response
     {
-        return $this->render('landing/presentation.html.twig');
+        $user = $this->getUser();
+        
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+        
+        if (!$user instanceof User) {
+            throw new \LogicException('L\'utilisateur connecté n\'est pas valide.');
+        }
+
+        $profilsDev = $user->getProfilsDev();
+        $langages = $langagesRepository->findAll();
+
+        return $this->render('landing/presentation.html.twig', [
+            'postes' => $postesRepository->findLastThree(),
+            'profils_company' => $profilsDev,
+            'entreprises' => $company->findAll(),
+            'langages' => $langages,
+            'offres' => $postesRepository->findPostsByDuplicateNames(),
+        ]);
+        // return $this->render('landing/presentation.html.twig');
     }
+
+    #[Route('/search', name: 'search_posts')]
+
+    public function searchPosts(
+        Request $request,
+        PostesRepository $postesRepository,
+        CompanyRepository $companyRepository,
+        LangagesRepository $langagesRepository,
+    ): Response {
+
+        $user = $this->getUser();
+        
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+        
+        if (!$user instanceof User) {
+            throw new \LogicException('L\'utilisateur connecté n\'est pas valide.');
+        }
+
+        $profilsDev = $user->getProfilsDev();
+
+
+        $technologies = $request->query->get('technologies');
+        $localisation = $request->query->get('localisation');
+        $salaireMin = $request->query->get('salaireMin');
+        $experienceMin = $request->query->get('experienceMin');
+
+        // Initialisez la requête de base pour trouver les postes
+        $queryBuilder = $postesRepository->createQueryBuilder('p');
+
+        // Appliquez les filtres
+        if ($technologies && $technologies != '0') {
+            $queryBuilder->innerJoin('p.langages', 'l')
+                     ->andWhere('l.nom LIKE :technologies')
+                     ->setParameter('technologies', '%' . $technologies . '%');
+        }
+        if ($localisation) {
+            $queryBuilder->andWhere('p.localisation LIKE :localisation')
+                        ->setParameter('localisation', '%' . $localisation . '%');
+        }
+        if ($salaireMin) {
+            $queryBuilder->andWhere('p.salaire >= :salaireMin')
+                        ->setParameter('salaireMin', $salaireMin);
+        }
+        if ($experienceMin) {
+            $queryBuilder->andWhere('p.experience_requise >= :experienceMin')
+                        ->setParameter('experienceMin', $experienceMin);
+        }
+
+        // Récupérez les résultats filtrés
+        $postes = $queryBuilder->getQuery()->getResult();
+
+        // Vous pouvez également ajouter les entreprises si vous le souhaitez
+        $entreprises = $companyRepository->findAll();
+        $langages = $langagesRepository->findAll();
+
+        // Rendre la vue de target_path avec les résultats de la recherche
+        return $this->render('landing/presentation.html.twig', [
+            'postes' => $postes,
+            'entreprises' => $entreprises,
+            'profils_company' => $profilsDev,
+            'langages' => $langages,
+            'offres' => $postesRepository->findPostsByDuplicateNames(),
+        ]);
+    }
+
+
+
 }

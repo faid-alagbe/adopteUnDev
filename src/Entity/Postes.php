@@ -124,6 +124,10 @@ class Postes
         return $this;
     }
 
+    public function showCompany():Company{
+        return $this->getUser()->getCompany();
+    }
+
     /**
      * @return Collection<int, langages>
      */
