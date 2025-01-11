@@ -52,12 +52,13 @@ final class CompanyCrtersController extends AbstractController
             $entityManager->persist($companyCrter);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_company_crters_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_profil_company', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('company_crters/new.html.twig', [
             'company_crter' => $companyCrter,
             'form' => $form,
+            'user' => $user,
         ]);
     }
 
@@ -118,9 +119,8 @@ final class CompanyCrtersController extends AbstractController
         }
 
         $devs = $profilsDevRepository->searchDevs(
-
             $companyCriteria->getSalaire() !== null ? $companyCriteria->getSalaire() - 100 : null,
-            $companyCriteria->getSalaire() !== null ? $companyCriteria->getSalaire() + 100 : null,
+            $companyCriteria->getSalaire() !== null ? $companyCriteria->getSalaire() + 1000 : null,
             $companyCriteria->getLocation(),
             $companyCriteria->getTechnologies(),
             $companyCriteria->getExperienceYear()

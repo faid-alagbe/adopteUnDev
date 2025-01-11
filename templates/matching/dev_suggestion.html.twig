@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
+{% block body %}
+{% for dev in company_crters %}
+  {{ dev.nom }}
+{% endfor %}
+{% endblock %}
 
-{% block title %}Bienvenue
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des developpeurs
 {% endblock %}
 
 {% block body %}
@@ -16,19 +25,19 @@
 						<div class="navbar-brand-box horizontal-logo">
 							<a href="index.html" class="logo logo-dark">
 								<span class="logo-sm">
-									<img src="assets/images/logo-sm.png" alt="" height="22">
+									<img src=" {{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
 								</span>
 								<span class="logo-lg">
-									<img src="assets/images/logo-dark.png" alt="" height="17">
+									<img src=" {{ asset('assets/images/logo-dark.png') }}" alt="" height="17">
 								</span>
 							</a>
 
 							<a href="index.html" class="logo logo-light">
 								<span class="logo-sm">
-									<img src="assets/images/logo-sm.png" alt="" height="22">
+									<img src=" {{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
 								</span>
 								<span class="logo-lg">
-									<img src="assets/images/logo-light.png" alt="" height="17">
+									<img src=" {{ asset('assets/images/logo-light.png') }}" alt="" height="17">
 								</span>
 							</a>
 						</div>
@@ -97,7 +106,7 @@
 										<!-- item -->
 										<a href="javascript:void(0);" class="dropdown-item notify-item py-2">
 											<div class="d-flex">
-												<img src="assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+												<img src=" {{ asset('assets/images/users/avatar-2.jpg') }} ", class="me-3 rounded-circle avatar-xs", alt="user-pic">
 												<div class="flex-grow-1">
 													<h6 class="m-0">Angela Bernier</h6>
 													<span class="fs-11 mb-0 text-muted">Manager</span>
@@ -107,7 +116,7 @@
 										<!-- item -->
 										<a href="javascript:void(0);" class="dropdown-item notify-item py-2">
 											<div class="d-flex">
-												<img src="assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+												<img src=" {{ asset('assets/images/users/avatar-3.jpg') }} ", class="me-3 rounded-circle avatar-xs" alt="user-pic">
 												<div class="flex-grow-1">
 													<h6 class="m-0">David Grasso</h6>
 													<span class="fs-11 mb-0 text-muted">Web Designer</span>
@@ -117,7 +126,7 @@
 										<!-- item -->
 										<a href="javascript:void(0);" class="dropdown-item notify-item py-2">
 											<div class="d-flex">
-												<img src="assets/images/users/avatar-5.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+												<img src=" {{ asset('assets/images/users/avatar-5.jpg') }}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
 												<div class="flex-grow-1">
 													<h6 class="m-0">Mike Bunch</h6>
 													<span class="fs-11 mb-0 text-muted">React Developer</span>
@@ -158,17 +167,25 @@
 						<div class="dropdown ms-sm-3 header-item topbar-user">
 							<button type="button" class="btn material-shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<span class="d-flex align-items-center">
-									<img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
+									<img class="rounded-circle header-profile-user" src=" {{ asset('assets/images/users/avatar-1.jpg') }}" alt="Header Avatar">
 									<span class="text-start ms-xl-2">
-										<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ profils_company.nom }}</span>
+									{% if user.role == 'ROLE_DEV' %}
+										<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ user.getProfilsDev.nom }}</span>
+										<span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Developpeur</span>
+									{% else %}
+										<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ user.getCompany.nom }}</span>
 										<span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Entreprise</span>
+									{% endif %}
 									</span>
 								</span>
 							</button>
 							<div
 								class="dropdown-menu dropdown-menu-end">
 								<!-- item-->
-								<h6 class="dropdown-header">Bienvenue {{ profils_company.nom }}</h6>
+								{% if user.role == 'ROLE_DEV' %}
+								<h6 class="dropdown-header">Bienvenue {{ user.getProfilsDev.nom }}</h6>
+								{% else %}
+								<h6 class="dropdown-header">Bienvenue {{ user.getCompany.nom }}</h6>
 								<a class="dropdown-item" href="{{ url('app_profil_company')}}">
 									<i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
 									<span class="align-middle">Profile de l'Entreprise</span>
@@ -181,6 +198,8 @@
 									<i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
 									<span class="align-middle" data-key="t-logout">Deconnexion</span>
 								</a>
+								{% endif %}
+								
 							</div>
 						</div>
 					</div>
@@ -224,19 +243,19 @@
 				<!-- Dark Logo-->
 				<a href="index.html" class="logo logo-dark">
 					<span class="logo-sm">
-						<img src="assets/images/logo-sm.png" alt="" height="22">
+						<img src=" {{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
 					</span>
 					<span class="logo-lg">
-						<img src="assets/images/logo-dark.png" alt="" height="17">
+						<img src=" {{ asset('assets/images/logo-dark.png') }}" alt="" height="17">
 					</span>
 				</a>
 				<!-- Light Logo-->
 				<a href="index.html" class="logo logo-light">
 					<span class="logo-sm">
-						<img src="assets/images/logo-sm.png" alt="" height="22">
+						<img src=" {{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
 					</span>
 					<span class="logo-lg">
-						<img src="assets/images/logo-light.png" alt="" height="17">
+						<img src=" {{ asset('assets/images/logo-light.png') }}" alt="" height="17">
 					</span>
 				</a>
 				<button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
@@ -247,9 +266,18 @@
 			<div class="dropdown sidebar-user m-1 rounded">
 				<button type="button" class="btn material-shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="d-flex align-items-center gap-2">
-						<img class="rounded header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
+						<img class="rounded header-profile-user" src=" {{ asset('assets/images/users/avatar-1.jpg') }}" alt="Header Avatar">
 						<span class="text-start">
-							<span class="d-block fw-medium sidebar-user-name-text">{{ profils_company.nom }}</span>
+							{% if user.role == 'ROLE_DEV' %}
+								<h6 class="dropdown-header">Bienvenue {{ user.getProfilsDev.nom }}</h6>
+							{% else %}
+								<h6 class="dropdown-header">Bienvenue {{ user.getCompany.nom }}</h6>
+							{% endif %}
+							{% if user.role == 'ROLE_DEV' %}
+								<span class="d-blockc fw-medium sidebar-user-name-text">{{ user.getProfilsDev.nom }}</span>
+							{% else %}
+								<span class="d-block fw-medium sidebar-user-name-text">{{ user.getCompany.nom }}</span>
+							{% endif %}
 							<span class="d-block fs-14 sidebar-user-name-sub-text">
 								<i class="ri ri-circle-fill fs-10 text-success align-baseline"></i>
 								<span class="align-middle">Online</span>
@@ -260,7 +288,11 @@
 				<div
 					class="dropdown-menu dropdown-menu-end">
 					<!-- item-->
-					<h6 class="dropdown-header">Bienvenue {{ profils_company.nom }}</h6>
+					{% if user.role == 'ROLE_DEV' %}
+					<h6 class="dropdown-header">Bienvenue {{ user.getProfilsDev.nom }}</h6>
+								{% else %}
+					<h6 class="dropdown-header">Bienvenue {{ user.getCompany.nom }}</h6>
+								{% endif %}
 						<a class="dropdown-item" href="{{ url('app_profil_company')}}">
 							<i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
 							<span class="align-middle">Profile de l'Entreprise</span>
@@ -277,8 +309,6 @@
 			</div>
 			<div id="scrollbar">
 				<div class="container-fluid">
-
-
 					<div id="two-column-menu"></div>
 					<ul class="navbar-nav" id="navbar-nav"></ul>
 				</div>
@@ -299,92 +329,58 @@
 					class="container-fluid">
 
 					<!-- start page title -->
-					<div class="row">
-						<div class="col-12">
-							<div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-								<h4 class="mb-sm-0">Vos Postes</h4>
-								<a href="{{ path('app_postes_new') }}" >
-									<button class='btn btn-primary'>
-										Ajouter
-									</button>
-								</a>
-							</div>
-						</div>
-					</div>
+					
 					<!-- end page title -->
 
 					<!-- end row-->
 
 					<!-- end row-->
 					<div class="row">
-						{% for poste in postes %}
-							<div class="col-lg-6">
+            {% for dev in company_crters %}
+							<div class="col-lg-12">
 								<div class="card shadow-lg">
 									<div class="card-body">
 										<div class="d-flex">
 											<div class="avatar-sm">
 												<div class="avatar-title bg-warning-subtle rounded">
-													<img src="assets/images/companies/img-3.png" alt="" class="avatar-xxs">
+													<img src=" {{ asset('assets/images/companies/img-3.png') }}" alt="" class="avatar-xxs">
 												</div>
 											</div>
 											<div class="ms-3 flex-grow-1">
 												<a href="#!">
-													<h5>{{ poste.titre }}</h5>
+													<h5>{{ dev.nom }}</h5>
 												</a>
+                                                <p class="text-warning fst-italic fw-light">
+                                                    &quot; {{ dev.biographie }} &quot;
+                                                </p>
 												<ul class="list-inline text-muted mb-3">
-													<li class="list-inline-item">
-														<i class="ri-building-line align-bottom me-1"></i>
-														{{ profils_company.nom }}
-													</li>
+													
 													<li class="list-inline-item">
 														<i class="ri-map-pin-2-line align-bottom me-1"></i>
-														{{ poste.localisation }}
+														{{ dev.localisation }}
 													</li>
 													<li class="list-inline-item">
 														<i class="ri-money-dollar-circle-line align-bottom me-1"></i>
-														{{ poste.salaire }}
+														{{ dev.salaireMin }}
 													</li>
 												</ul>
 												<div class="hstack gap-2">
-													{% for langage in poste.langages | slice(0, 6) %}
+													{% for langage in dev.langages | slice(0, 6) %}
 													<span class="badge bg-success-subtle text-success">{{ langage }}</span>
 													{% endfor %}
 													
 												</div>
+
+                                                
 											</div>
-											<div>
-												<a href="{{ path('app_postes_show', {'id': poste.id}) }}" >
-													<button class='btn btn-outline-primary'>
-														<span class="icon">
-															<i class="ri-eye-line"></i>
-														</span>
-													</button>
-												</a>
-												<a href="{{ path('app_postes_edit', {'id': poste.id}) }}" >
-													<button class='btn btn-outline-secondary'>
-														<span class="icon">
-															<i class="ri-edit-line"></i>
-														</span>
-													</button>
-												</a>
-												<a href= "{{ path('app_postes_delete', {'id': poste.id}) }}">
-													<button class='btn btn-outline-danger'>
-														<span class="icon">
-															<i class="las la-trash-alt"></i>
-														</span>
-													</button>
-												</a>
-												
-											</div>
+											
+											
 										</div>
 									</div>
 								</div>
 							</div>
-						{% else %}
-							<div class='text-center'>
-								Pas de postes de votre part
-							</div>
-						{% endfor %}
+            {% endfor %}
+						
 					</div>
             
 
@@ -403,49 +399,4 @@
 
 {% endblock %}
 
-{# 
 
-
-{% extends 'base.html.twig' %}
-
-{% block title %}Postes index{% endblock %}
-
-{% block body %}
-    <h1>Postes index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Localisation</th>
-                <th>Experience_requise</th>
-                <th>Salaire</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for poste in postes %}
-            <tr>
-                <td>{{ poste.id }}</td>
-                <td>{{ poste.titre }}</td>
-                <td>{{ poste.localisation }}</td>
-                <td>{{ poste.experienceRequise }}</td>
-                <td>{{ poste.salaire }}</td>
-                <td>{{ poste.description }}</td>
-                <td>
-                    <a href="{{ path('app_postes_show', {'id': poste.id}) }}">show</a>
-                    <a href="{{ path('app_postes_edit', {'id': poste.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_postes_new') }}">Create new</a>
-{% endblock %} #}

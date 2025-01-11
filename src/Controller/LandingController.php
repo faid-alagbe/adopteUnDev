@@ -70,6 +70,7 @@ class LandingController extends AbstractController
             return $this->render('profils_dev/new.html.twig', [
                 'profils_dev' => $profilsDev,
                 'form' => $form,
+                'user' => $user,
             ]);
             /* throw $this->createNotFoundException('Profil développeur introuvable pour cet utilisateur.'); */
         }
@@ -111,6 +112,7 @@ class LandingController extends AbstractController
             return $this->render('company/new.html.twig', [
                 'profils_company' => $profilsCompany,
                 'form' => $form,
+                'user' => $user,
             ]);
         }
 
@@ -119,6 +121,8 @@ class LandingController extends AbstractController
         return $this->render('company/show.html.twig', [
             'profils_company' => $profilsCompany,
             'developpeurs' => $profilsDevRepository->findAll(),
+            'user' => $user,
+            'postes' => $postesRepository->findAllMyPoste(),
         ]);
     }
 
@@ -179,6 +183,7 @@ class LandingController extends AbstractController
             'entreprises' => $company->findAll(),
             'langages' => $langages,
             'offres' => $postesRepository->findPostsByDuplicateNames(),
+            'user' => $user,
         ]);
         // return $this->render('landing/presentation.html.twig');
     }
@@ -245,6 +250,7 @@ class LandingController extends AbstractController
             'entreprises' => $entreprises,
             'profils_company' => $profilsDev,
             'langages' => $langages,
+            'user' => $user,
             'offres' => $postesRepository->findPostsByDuplicateNames(),
         ]);
     }

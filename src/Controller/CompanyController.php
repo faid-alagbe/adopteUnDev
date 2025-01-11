@@ -54,12 +54,23 @@ final class CompanyController extends AbstractController
             'postes' => $postesRepository->findLastThree(),
             'profils_company' => $company,
             'favoris' => $favoris,
+            'user' => $user,
         ]);
     }
 
     #[Route('/new', name: 'app_company_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        if (!$user instanceof User) {
+            throw new \LogicException('L\'utilisateur connecté n\'est pas valide.');
+        }
+
         $company = new Company();
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
@@ -76,6 +87,7 @@ final class CompanyController extends AbstractController
         return $this->render('company/new.html.twig', [
             'company' => $company,
             'form' => $form,
+            'user'=> $user,
         ]);
     }
 

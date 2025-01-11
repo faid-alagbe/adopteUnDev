@@ -78,6 +78,14 @@ class PostesRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllMyPoste()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC') 
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findPostsByDuplicateNames(): array
     {
         return $this->createQueryBuilder('p')

@@ -17,6 +17,15 @@ class ProfilsDevRepository extends ServiceEntityRepository
         parent::__construct($registry, ProfilsDev::class);
     }
 
+    public function findByExcludingUser($user): array
+{
+    $qb = $this->createQueryBuilder('p')
+        ->where('p.user != :currentUser')
+        ->setParameter('currentUser', $user);
+
+    return $qb->getQuery()->getResult();
+}
+
     //    /**
     //     * @return ProfilsDev[] Returns an array of ProfilsDev objects
     //     */

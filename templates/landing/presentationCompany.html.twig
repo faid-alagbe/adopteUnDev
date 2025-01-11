@@ -504,7 +504,7 @@
 												</li>
 											</ul>
 											<div class="hstack gap-2">
-												{% for langage in poste.langages %}
+												{% for langage in poste.langages | slice(0, 6) %}
 												<span class="badge bg-success-subtle text-success">{{ langage }}</span>
 												{% endfor %}
 												

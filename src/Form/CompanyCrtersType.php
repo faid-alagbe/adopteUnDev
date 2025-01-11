@@ -7,6 +7,8 @@ use App\Entity\CompanyCrters;
 use App\Entity\Langages;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,9 +17,30 @@ class CompanyCrtersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('salaire')
-            ->add('location')
-            ->add('experienceYear')
+            ->add('salaire', IntegerType::class, [
+                'label' => 'Salaire',
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'locationInput',
+                    'placeholder' => '10000',
+                ]
+            ])
+            ->add('location', TextType::class, [
+                'label' => 'Localisation',
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'locationInput',
+                    'placeholder' => 'Ville, Pays',
+                ]
+            ])
+            ->add('experienceYear', IntegerType::class, [
+                'label' => 'Experience Réquis',
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'locationInput',
+                    'placeholder' => '3',
+                ]
+            ])
             ->add('technologies', EntityType::class, [
                 'class' => Langages::class, // Entité liée
                 'choice_label' => 'nom', // Champ affiché dans la liste déroulante

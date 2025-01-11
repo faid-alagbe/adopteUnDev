@@ -123,7 +123,7 @@
 								<span class="d-flex align-items-center">
 									<img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
 									<span class="text-start ms-xl-2">
-										<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Mach Dev</span>
+										<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ profils_company.nom | default(user.email) }}</span>
 										<span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Dévéloppeur</span>
 									</span>
 								</span>
@@ -131,12 +131,16 @@
 							<div
 								class="dropdown-menu dropdown-menu-end">
 								<!-- item-->
-								<h6 class="dropdown-header">Bienvenue Dev</h6>
+								<h6 class="dropdown-header">Bienvenue</h6>
 								<a class="dropdown-item" href="{{ url('app_profil')}}">
 									<i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
 									<span class="align-middle">Profile</span>
 								</a>
-								<a class="dropdown-item" href="#">
+								<a class="dropdown-item" href="{{ url('app_poste_critere') }}">
+									<i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
+									<span class="align-middle">Mes Offres</span>
+								</a>
+								<a class="dropdown-item" href="{{ url('app_profils_dev_index') }}">
 									<i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
 									<span class="align-middle">Noter un developpeur</span>
 								</a>
@@ -223,7 +227,7 @@
 				<div
 					class="dropdown-menu dropdown-menu-end">
 					<!-- item-->
-					<h6 class="dropdown-header">Bienvenue Dev</h6>
+					<h6 class="dropdown-header">Bienvenue</h6>
 					<a class="dropdown-item" href="{{ url('app_profil') }}">
 						<i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
 						<span class="align-middle">Profile</span>
@@ -300,8 +304,8 @@
 												</li>
 											</ul>
 											<div class="hstack gap-2">
-												{% for langage in poste.langages %}
-												<span class="badge bg-success-subtle text-success">{{ langage }}</span>
+												{% for langage in poste.langages | slice(0, 6) %}
+												<p class="badge bg-success-subtle text-success">{{ langage }}</p>
 												{% endfor %}
 												
 											</div>
@@ -320,8 +324,8 @@
 							</div>
 						</div>
                     {% else %}
-                        <div class='text-center'>
-							Pas de postes de votre part
+                        <div class='text-center mb-5'>
+							Aucun poste ne correspond à votre profil ou recherche
                         </div>
                     {% endfor %}
 						
@@ -370,7 +374,7 @@
 								</div>
 							</div>
 						{% else %}
-							<div class='text-center'>
+							<div class='text-center mb-5'>
 								Aucune Entreprise
 							</div>
 						{% endfor %}
