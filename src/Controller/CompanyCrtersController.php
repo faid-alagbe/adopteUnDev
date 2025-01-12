@@ -52,7 +52,7 @@ final class CompanyCrtersController extends AbstractController
             $entityManager->persist($companyCrter);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_profil_company', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dev_critere', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('company_crters/new.html.twig', [
