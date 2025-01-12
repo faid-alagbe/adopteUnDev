@@ -51,10 +51,11 @@ final class CompanyController extends AbstractController
         ]);
 
         return $this->render('landing/presentationCompany.html.twig', [
-            'postes' => $postesRepository->findLastThree(),
+            'postes' => $postesRepository->findLastThreeUser($user),
             'profils_company' => $company,
             'favoris' => $favoris,
             'user' => $user,
+            'nombreposte' => $postesRepository->countByUser($user),
         ]);
     }
 

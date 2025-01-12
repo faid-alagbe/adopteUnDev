@@ -1,42 +1,4 @@
-{# {% extends 'base.html.twig' %}
 
-{% block title %}Company{% endblock %}
-
-{% block body %}
-    <h1>Company</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ company.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ company.nom }}</td>
-            </tr>
-            <tr>
-                <th>Location</th>
-                <td>{{ company.location }}</td>
-            </tr>
-            <tr>
-                <th>Logo</th>
-                <td>{{ company.logo }}</td>
-            </tr>
-            <tr>
-                <th>Presentation</th>
-                <td>{{ company.presentation }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_company_index') }}">back to list</a>
-
-    <a href="{{ path('app_company_edit', {'id': company.id}) }}">edit</a>
-
-    {{ include('company/_delete_form.html.twig') }}
-{% endblock %}
- #}
 
 {% extends 'base.html.twig' %}
 
@@ -265,7 +227,7 @@
 				<div class="row text text-white-50 text-center">
 					<div class="col-lg-6 col-4">
 						<div class="p-2">
-							<h4 class="text-white mb-1">15</h4>
+							<h4 class="text-white mb-1">{{ nombreposte }}</h4>
 							<p class="fs-14 mb-0">Postes</p>
 						</div>
 					</div>
@@ -363,7 +325,7 @@
 
 													<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
 														<li>
-															<a class="dropdown-item" href="#">Afficher tout</a>
+															<a class="dropdown-item" href="{{ url('app_profils_dev_index') }}">Afficher tout</a>
 														</li>
 
 													</ul>
@@ -383,8 +345,8 @@
 													</div>
 												</div>
 												<div class="flex-shrink-0 ms-2">
-													<button type="button" class="btn btn-sm btn-outline-success material-shadow-none btn-favorite" data-dev-id="{{ developpeur.id }}" title="Ajouter aux favoris">
-														<i class="ri-user-add-line align-middle favorite-icon"></i>
+													<button type="button" class="btn btn-sm btn-outline-danger material-shadow-none btn-favorite" data-dev-id="{{ developpeur.id }}" title="Ajouter aux favoris">
+														<i class="las la-heart align-middle favorite-icon"></i>
 													</button>
 												</div>
 											</div>
@@ -393,11 +355,9 @@
 										</div>
 									</div>
 								
-	<a href="{{ path('app_company_crters_new') }}" class="btn btn-sm btn-outline-success material-shadow-none"><i class="ri-user-add-line align-middle"></i> Créer des critères</a>
-    
-
-
-													
+									<a href="{{ path('app_company_crters_new') }}" class="btn btn-sm btn-outline-success material-shadow-none p-3">
+									<i class="ri-add-line align-middle"></i> Créer des critères
+									</a>
 									<!-- end card body -->
 																							
 
@@ -1618,17 +1578,15 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.estFavori) {
-                    button.classList.remove('btn-outline-success');
-                    button.classList.add('btn-success');
-                    icon.classList.remove('ri-user-add-line');
-                    icon.classList.add('ri-user-follow-line');
+                    button.classList.remove('btn-outline-danger');
+                    button.classList.add('btn-danger');
                     button.title = 'Retirer des favoris';
                 }
             });
         
         // Gérer le clic
         button.addEventListener('click', function() {
-            const isFavorite = button.classList.contains('btn-success');
+            const isFavorite = button.classList.contains('btn-danger');
             const url = isFavorite ? `/favoris/retirer/${devId}` : `/favoris/ajouter/${devId}`;
             const method = isFavorite ? 'DELETE' : 'POST';
             
@@ -1641,16 +1599,12 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (isFavorite) {
-                    button.classList.remove('btn-success');
-                    button.classList.add('btn-outline-success');
-                    icon.classList.remove('ri-user-follow-line');
-                    icon.classList.add('ri-user-add-line');
+                    button.classList.remove('btn-danger');
+                    button.classList.add('btn-outline-danger');
                     button.title = 'Ajouter aux favoris';
                 } else {
-                    button.classList.remove('btn-outline-success');
-                    button.classList.add('btn-success');
-                    icon.classList.remove('ri-user-add-line');
-                    icon.classList.add('ri-user-follow-line');
+                    button.classList.remove('btn-outline-danger');
+                    button.classList.add('btn-danger');
                     button.title = 'Retirer des favoris';
                 }
                 

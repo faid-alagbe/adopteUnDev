@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Postes;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Common\Collections\Collection;
@@ -69,6 +70,27 @@ class PostesRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findLastThreeUser(User $user)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllMyPosteUser(User $user)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findLastThree()
     {
         return $this->createQueryBuilder('p')
@@ -95,6 +117,16 @@ class PostesRepository extends ServiceEntityRepository
         ->orderBy('count', 'DESC')
         ->getQuery()
         ->getResult();
+    }
+
+    public function countByUser(User $user): int
+    {
+        return $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->where('p.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     //    /**

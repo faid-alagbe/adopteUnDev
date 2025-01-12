@@ -122,7 +122,8 @@ class LandingController extends AbstractController
             'profils_company' => $profilsCompany,
             'developpeurs' => $profilsDevRepository->findAll(),
             'user' => $user,
-            'postes' => $postesRepository->findAllMyPoste(),
+            'postes' => $postesRepository->findAllMyPosteUser($user),
+            'nombreposte' => $postesRepository->countByUser($user),
         ]);
     }
 

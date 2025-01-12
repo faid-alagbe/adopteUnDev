@@ -31,7 +31,7 @@ final class PostesController extends AbstractController{
         $profilsCompany = $user->getCompany();
     
         return $this->render('postes/index.html.twig', [
-            'postes' => $postesRepository->findAll(),
+            'postes' => $postesRepository->findAllMyPosteUser($user),
             'profils_company' => $profilsCompany,
         ]);
     }
@@ -65,6 +65,7 @@ final class PostesController extends AbstractController{
         return $this->render('postes/new.html.twig', [
             'poste' => $poste,
             'form' => $form,
+            'user' => $user,
         ]);
     }
     throw $this->createNotFoundException('Seule les entreprises peuvent créer un poste.');   

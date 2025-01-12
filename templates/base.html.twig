@@ -10,6 +10,68 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
 		<meta content="Themesbrand" name="author"/>
+        <style>
+            /* Bouton animé - Style général */
+            #go-home {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 1000; /* Toujours au-dessus */
+                background: linear-gradient(45deg, #3d4d82, #838fb9);
+                color: white;
+                text-decoration: none;
+                padding: 10px 20px;
+                border-radius: 50px;
+                font-size: 16px;
+                font-weight: bold;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Effet hover */
+            #go-home:hover {
+                background: linear-gradient(45deg, #3d4d82, #838fb9);
+                transform: scale(1.1);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            }
+
+            /* Animation du texte */
+            .animated-button span {
+                display: inline-block;
+                animation: bounce 1.5s infinite;
+            }
+
+            /* Effet de rebond */
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% {
+                    transform: translateY(0);
+                }
+                40% {
+                    transform: translateY(-8px);
+                }
+                60% {
+                    transform: translateY(-4px);
+                }
+            }
+        </style>
+
+        <script>
+            document.getElementById('go-home').addEventListener('click', function (event) {
+                // Exemple d'effet : Animation sur clic
+                event.preventDefault(); // Empêche la redirection immédiate
+                const link = this.getAttribute('href');
+                this.style.transform = 'scale(1.5)';
+                this.style.transition = 'transform 0.3s';
+
+                setTimeout(() => {
+                    window.location.href = link; // Redirige après l'animation
+                }, 300);
+            });
+        </script>
+        
 
 		{% block stylesheets %}
 			<!-- App favicon -->
@@ -83,5 +145,8 @@
     <body data-bs-spy="scroll" data-bs-target="#navbar-example">
         {% block body %}
         {% endblock %}
+        <a href="/" id="go-home" class="animated-button" title="Retour à l'accueil">
+            <span>Accueil</span>
+        </a>
     </body>
 </html>
